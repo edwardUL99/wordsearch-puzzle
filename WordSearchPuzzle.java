@@ -57,5 +57,7 @@ public class WordSearchPuzzle {
 				puzzleWords.add(chosenWords.get(randPos));
 			}
 		}
+		
+		chosenWords = null;
 	}
 }

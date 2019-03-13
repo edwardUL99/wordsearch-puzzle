@@ -23,7 +23,7 @@ public class WordSearchPuzzle {
 		return puzzleWords;
 	}
 
-	private void readFromFile(String wordFile, int WordCount, int shortest, int longest) {
+	private void readFromFile(String wordFile, int wordCount, int shortest, int longest) {
 		List<String> chosenWords = new ArrayList<String>();
 		try {
 			FileReader aFileReader = new FileReader(wordFile);
@@ -40,15 +40,15 @@ public class WordSearchPuzzle {
 			aFileReader.close();
 		} catch (IOException e) {
 		}
-		storeIntoPuzzleArray(chosenWords, WordCount);
+		storeIntoPuzzleArray(chosenWords, wordCount);
 	}
 
-	private void storeIntoPuzzleArray(List<String> chosenWords, int WordCount) {
+	private void storeIntoPuzzleArray(List<String> chosenWords, int wordCount) {
 		int i = 0;
 		while (i < chosenWords.size()) {
 			int randPos = (int)(Math.random() * chosenWords.size());
 			if (!puzzleWords.contains(chosenWords.get(randPos))) {
-				if (puzzleWords.size() < WordCount) {
+				if (puzzleWords.size() < wordCount) {
 					puzzleWords.add(chosenWords.get(randPos));
 				}
 				i++;

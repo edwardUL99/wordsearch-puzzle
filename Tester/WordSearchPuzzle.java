@@ -2,29 +2,29 @@
 * Author: Edward Lynch-Milner
 * ID: 18222021
 **/
+import java.util.List;
 import java.util.ArrayList;
 import java.io.*;
 
 public class WordSearchPuzzle {
 	private char[][] puzzle;
-	private ArrayList<String> puzzleWords;
-	
-	public WordSearchPuzzle(ArrayList<String> userSpecifiedWords) {
-		
+	private List<String> puzzleWords;
+
+	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		puzzleWords = userSpecifiedWords;
 	}
-	
+
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
 		puzzleWords = new ArrayList<String>(wordCount);
 		readFromFile(wordFile, wordCount, shortest, longest);
 	}
-	
-	public ArrayList<String> getWordSearchList() {
+
+	public List<String> getWordSearchList() {
 		return puzzleWords;
 	}
-	
+
 	private void readFromFile(String wordFile, int WordCount, int shortest, int longest) {
-		ArrayList<String> chosenWords = new ArrayList<String>();
+		List<String> chosenWords = new ArrayList<String>();
 		try {
 			FileReader aFileReader = new FileReader(wordFile);
 			BufferedReader aBufferReader = new BufferedReader(aFileReader);
@@ -40,11 +40,18 @@ public class WordSearchPuzzle {
 			aFileReader.close();
 		} catch (IOException e) {
 		}
-		
-		while (puzzleWords.size() < WordCount) {
+		storeIntoPuzzleArray(chosenWords, WordCount);
+	}
+
+	private void storeIntoPuzzleArray(List<String> chosenWords, int WordCount) {
+		int i = 0;
+		while (i < chosenWords.size()) {
 			int randPos = (int)(Math.random() * chosenWords.size());
 			if (!puzzleWords.contains(chosenWords.get(randPos))) {
-				puzzleWords.add(chosenWords.get(randPos));
+				if (puzzleWords.size() < WordCount) {
+					puzzleWords.add(chosenWords.get(randPos));
+				}
+				i++;
 			}
 		}
 		chosenWords = null;

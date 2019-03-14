@@ -10,7 +10,7 @@ public class WordSearchPuzzle {
 	private char[][] puzzle;
 	private List<String> puzzleWords;
 
-	public wordSearchPuzzle(List<String> userSpecifiedWords) {
+	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		puzzleWords = userSpecifiedWords;
 	}
 
@@ -21,19 +21,6 @@ public class WordSearchPuzzle {
 
 	public List<String> getWordSearchList() {
 		return puzzleWords;
-	}
-
-
-	public char[][] getPuzzleAsGrid() {
-	}
-
-	public String getPuzzleAsString() {
-	}
-
-	public void showWordSearchPuzzle(boolean hide) {
-	}
-
-	private void generateWordSearchPuzzle() {
 	}
 
 	private void readFromFile(String wordFile, int wordCount, int shortest, int longest) {

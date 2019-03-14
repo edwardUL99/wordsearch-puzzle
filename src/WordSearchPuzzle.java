@@ -10,7 +10,7 @@ public class WordSearchPuzzle {
 	private char[][] puzzle;
 	private List<String> puzzleWords;
 
-	public wordSearchPuzzle(List<String> userSpecifiedWords) {
+	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		puzzleWords = userSpecifiedWords;
 	}
 

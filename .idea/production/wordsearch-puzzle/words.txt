@@ -1,0 +1,12 @@
+dog 
+cat 
+rabbit 
+donkey 
+marsupial 
+kangaroo 
+giraffe 
+turtle 
+horse
+monkey
+fish
+snake

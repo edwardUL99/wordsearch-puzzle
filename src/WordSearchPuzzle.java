@@ -8,21 +8,23 @@ import java.io.*;
 
 public class WordSearchPuzzle {
 	private char[][] puzzle;
-	private final List<String> puzzleWords;
+	private List<String> puzzleWords;
+	private final int dimensions;
 
 	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		puzzleWords = userSpecifiedWords;
+		this.dimensions = getDimensions();
 	}
 
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
 		puzzleWords = new ArrayList<String>(wordCount);
 		readFromFile(wordFile, wordCount, shortest, longest);
-		puzzle = new char[getDimensions()][getDimensions()];
+		this.dimensions = getDimensions();
+		puzzle = new char[this.dimensions][this.dimensions];
 		testFill();
 	}
 
 	public List<String> getWordSearchList() {
-		System.out.printf("The dimensions of the puzzle are %d x %d\n", getDimensions(), getDimensions());
 		return puzzleWords;
 	}
 

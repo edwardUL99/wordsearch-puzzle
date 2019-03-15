@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" selection-start-line="4" selection-end-line="5" />
+            <state relative-caret-position="153">
+              <caret line="9" column="79" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,11 +45,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="71" column="17" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="17" />
+            <state relative-caret-position="516">
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
+              <folding>
+                <element signature="e#0#2699#0" expanded="true" />
+                <element signature="e#335#336#0" expanded="true" />
+                <element signature="e#374#375#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,14 +68,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/words.txt" />
-        <option value="$PROJECT_DIR$/src/WordSearchPuzzle.java" />
         <option value="$PROJECT_DIR$/src/Driver.java" />
+        <option value="$PROJECT_DIR$/src/WordSearchPuzzle.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="756" />
-    <option name="width" value="617" />
+    <option name="x" value="676" />
+    <option name="width" value="697" />
     <option name="height" value="775" />
   </component>
   <component name="ProjectView">
@@ -79,7 +87,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552649095066" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552687453592" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -135,6 +143,7 @@
       <workItem from="1552592372232" duration="281000" />
       <workItem from="1552592757294" duration="7795000" />
       <workItem from="1552645302728" duration="1112000" />
+      <workItem from="1552680780453" duration="6135000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -147,7 +156,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9188000" />
+    <option name="totallyTimeSpent" value="15323000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -161,7 +170,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32872504" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32411674" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39938557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -208,19 +217,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
+    <entry file="file://$PROJECT_DIR$/src/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="71" column="17" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="17" />
+        <state relative-caret-position="153">
+          <caret line="9" column="79" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Driver.java">
+    <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="5" />
+        <state relative-caret-position="516">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#2699#0" expanded="true" />
+            <element signature="e#335#336#0" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
           </folding>
         </state>
       </provider>

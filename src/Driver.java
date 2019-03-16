@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Driver {
 	public static void main(String[] args) {
-		WordSearchPuzzle test = new WordSearchPuzzle("words.txt", 7, 1, 5);
+		WordSearchPuzzle test = new WordSearchPuzzle("words.txt", 5, 1, 5);
 		System.out.println(test.getWordSearchList());
 		System.out.println();
 		System.out.println(test.getPuzzleAsString());

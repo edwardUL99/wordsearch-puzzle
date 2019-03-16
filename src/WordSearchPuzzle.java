@@ -18,8 +18,10 @@ public class WordSearchPuzzle {
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
 		puzzleWords = new ArrayList<String>(wordCount);
 		readFromFile(wordFile, wordCount, shortest, longest);
-		puzzle = new char[8][8];
-		testFill();
+		System.out.println(getDimensions());
+		generateWordSearchPuzzle();
+		//puzzle = new char[8][8];
+		//testFill();
 	}
 
 	public List<String> getWordSearchList() {
@@ -31,14 +33,17 @@ public class WordSearchPuzzle {
 	}
 
 	public String getPuzzleAsString() {
-		String puzzleString = "";
-		for (char[] i : puzzle) {
-			for (char ch : i) {
-				puzzleString = puzzleString + "\t" + ch;
-			}
-			puzzleString = puzzleString + "\n";
-		}
-		return puzzleString;
+	    if (puzzle != null) {
+            String puzzleString = "";
+            for (char[] i : puzzle) {
+                for (char ch : i) {
+                    puzzleString = puzzleString + "\t" + ch;
+                }
+                puzzleString = puzzleString + "\n";
+            }
+            return puzzleString;
+        }
+		return null;
 	}
 
 	private void testFill() {
@@ -50,24 +55,31 @@ public class WordSearchPuzzle {
 	}
 
 	private void generateWordSearchPuzzle() {
+	    System.out.println(puzzleWords);
 		if (puzzleWords.size() != 0) {
 			final int dimensions = getDimensions();
 			puzzle = new char[dimensions][dimensions];
-			int i = 0;
-			while (puzzleWords.size() > 0) {
-				char[] wordArray = puzzleWords.get(i).toCharArray();
-				while (!puzzleContainsWord(puzzleWords.get(i), false) || !puzzleContainsWord(puzzleWords.get(i), true)) {
-					int randRow = (int)(Math.random() * puzzle.length);
-					int randCol = (int)(Math.random() * puzzle[0].length);
+			int i = puzzleWords.size() - 1;
+			int row, col;
+			while (i >= 0) {
+			    String word = puzzleWords.get(i);
+			    System.out.println(word);
+				char[] wordArray = word.toCharArray();
+				System.out.println(getPuzzleAsString());
+				while (!puzzleContainsWord(word, false) && !puzzleContainsWord(word, true)) {
 					boolean[] upOrDown = {true, false};
 					boolean vertical = upOrDown[(int)(Math.random() * upOrDown.length)];
-					if (isAreaAvailable(randRow, randCol, puzzleWords.get(i), vertical)) {
-						insert(wordArray, randRow, randCol, vertical, upOrDown[(int)(Math.random() * upOrDown.length)]);
+					row = (int)(Math.random() * puzzle.length);
+					col = (int)(Math.random() * puzzle[0].length);
+					//System.out.printf("%d + %d + %b\n", randRow, randCol, vertical);
+					//System.out.println(isAreaAvailable(randRow, randCol, word, vertical));
+					if (ableToInsert(row, col, vertical, word)) {
+						insert(wordArray, row, col, vertical, upOrDown[(int)(Math.random() * upOrDown.length)]);
 					}
 				}
-				puzzleWords.remove(i);
-				i++;
+				i--;
 			}
+			fillUnused();
 		}
 	}
 
@@ -79,7 +91,7 @@ public class WordSearchPuzzle {
 			for (int row = startingRow; row < wordArray.length; row++) {
 				puzzle[row][startingCol] = wordArray[row];
 			}
-		} else {
+		} else if (!vertical) {
 			for (int col = startingCol; col < wordArray.length; col++) {
 				puzzle[startingRow][col] = wordArray[col];
 			}
@@ -87,7 +99,13 @@ public class WordSearchPuzzle {
 	}
 
 	private void fillUnused() {
-
+        for (int row = 0; row < puzzle.length; row++) {
+            for (int col = 0; col < puzzle[0].length; col++) {
+                if (puzzle[row][col] == '\u0000') {
+                    puzzle[row][col] = (char)(Math.random() * (91 - 65) + 65);
+                }
+            }
+        }
 	}
 
 	/**
@@ -121,35 +139,28 @@ public class WordSearchPuzzle {
 		return false;
 	}
 
-	private boolean isAreaAvailable(int row, int col, String word, boolean vertical) {
-		if ((row >= 0 && row < puzzle.length) && (col >= 0 && col < puzzle[0].length)) {
-			if (vertical && areaNotUsed(col, true)) {
-				return word.length() <= (puzzle.length - row);
-			} else if (areaNotUsed(row, false)) {
-				return word.length() <= (puzzle.length - col);
-			}
-		}
-		return false;
-	}
-
-	private boolean areaNotUsed(int coordinate, boolean vertical) {
-		if (coordinate >= 0 && coordinate < puzzle.length) {
-			if (vertical) {
-				for (int i = 0; i < puzzle.length; i++) {
-					if (puzzle[i][coordinate] != '\u0000') {
-						return false;
-					}
-				}
-			} else {
-				for (int i = 0; i < puzzle[0].length; i++) {
-					if (puzzle[coordinate][i] != '\u0000') {
-						return false;
-					}
-				}
-			}
-			return true;
-		}
-		return false;
+	private boolean ableToInsert(int row, int col, boolean vertical, String word) {
+	    if (vertical) {
+            if (word.length() > (puzzle.length - row)) {
+                return false;
+            }
+	        for (int i = row; i < puzzle.length; i++) {
+	            if (puzzle[i][col] != '\u0000') {
+	                return false;
+                }
+            }
+	        return true;
+        } else {
+            if (word.length() > (puzzle.length - col)) {
+                return false;
+            }
+            for (int i = col; i < puzzle[0].length; i++) {
+                if (puzzle[row][col] != '\u0000') {
+                    return false;
+                }
+            }
+            return true;
+        }
 	}
 
 	public String reverse(String word) {
@@ -201,6 +212,6 @@ public class WordSearchPuzzle {
 		for (String i : puzzleWords) {
 			sum += i.length();
 		}
-		return ((int)(Math.sqrt(sum * scalingFactor)) + 1); //Incrementing it by 1 will always round it up
+		return ((int)(Math.sqrt((sum + 1) * scalingFactor)) + 1); //Incrementing it by 1 will always round it up
 	}
 }

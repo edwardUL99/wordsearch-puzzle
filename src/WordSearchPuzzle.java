@@ -4,24 +4,24 @@
 */
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Random;
 import java.io.*;
 
 public class WordSearchPuzzle {
 	private char[][] puzzle;
 	private List<String> puzzleWords;
+	private Random random = new Random();
 
 	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		puzzleWords = userSpecifiedWords;
+		capitalise();
+		generateWordSearchPuzzle();
 	}
 
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
 		puzzleWords = new ArrayList<String>(wordCount);
 		readFromFile(wordFile, wordCount, shortest, longest);
-		System.out.println(getDimensions());
 		generateWordSearchPuzzle();
-		//puzzle = new char[8][8];
-		//testFill();
 	}
 
 	public List<String> getWordSearchList() {
@@ -46,54 +46,49 @@ public class WordSearchPuzzle {
 		return null;
 	}
 
-	private void testFill() {
-		for (int row = 0; row < puzzle.length; row++) {
-			for (int col = 0; col < puzzle[0].length; col++) {
-				puzzle[row][col] = (char)(Math.random() * (91-65) + 65);
-			}
-		}
-	}
-
 	private void generateWordSearchPuzzle() {
-	    System.out.println(puzzleWords);
 		if (puzzleWords.size() != 0) {
 			final int dimensions = getDimensions();
 			puzzle = new char[dimensions][dimensions];
-			int i = puzzleWords.size() - 1;
-			int row, col;
+			int i = puzzleWords.size() - 1, row, col, attempts = 0;
 			while (i >= 0) {
 			    String word = puzzleWords.get(i);
-			    System.out.println(word);
 				char[] wordArray = word.toCharArray();
-				System.out.println(getPuzzleAsString());
 				while (!puzzleContainsWord(word, false) && !puzzleContainsWord(word, true)) {
-					boolean[] upOrDown = {true, false};
-					boolean vertical = upOrDown[(int)(Math.random() * upOrDown.length)];
-					row = (int)(Math.random() * puzzle.length);
-					col = (int)(Math.random() * puzzle[0].length);
-					//System.out.printf("%d + %d + %b\n", randRow, randCol, vertical);
-					//System.out.println(isAreaAvailable(randRow, randCol, word, vertical));
-					if (ableToInsert(row, col, vertical, word)) {
-						insert(wordArray, row, col, vertical, upOrDown[(int)(Math.random() * upOrDown.length)]);
+					boolean vertical = random.nextBoolean();
+					if (attempts < 100) {
+						System.out.println(word);
+						row = (int) (Math.random() * puzzle.length);
+						col = (int) (Math.random() * puzzle[0].length);
+						System.out.printf("%d + %d\n",row, col);
+						System.out.println(ableToInsert(row, col, vertical, word));
+						if (ableToInsert(row, col, vertical, word)) {
+							insert(wordArray, row, col, vertical, random.nextBoolean());
+						}
+						attempts++;
+					} else {
+						i--;
+						word = puzzleWords.get(i);
+						attempts = 0;
 					}
 				}
+				attempts = 0;
 				i--;
 			}
 			fillUnused();
 		}
 	}
 
-	private void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
+	public void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
+		int index = 0;
 		if (reversed) {
 			wordArray = reverse(new String(wordArray)).toCharArray();
 		}
-		if (vertical) {
-			for (int row = startingRow; row < wordArray.length; row++) {
-				puzzle[row][startingCol] = wordArray[row];
-			}
-		} else if (!vertical) {
-			for (int col = startingCol; col < wordArray.length; col++) {
-				puzzle[startingRow][col] = wordArray[col];
+		while (index < wordArray.length) {
+			if (vertical) {
+				puzzle[startingRow++][startingCol] = wordArray[index++];
+			} else {
+				puzzle[startingRow][startingCol++] = wordArray[index++];
 			}
 		}
 	}
@@ -140,6 +135,9 @@ public class WordSearchPuzzle {
 	}
 
 	private boolean ableToInsert(int row, int col, boolean vertical, String word) {
+		if (word.length() > getDimensions()) {
+			return false;
+		}
 	    if (vertical) {
             if (word.length() > (puzzle.length - row)) {
                 return false;
@@ -163,7 +161,7 @@ public class WordSearchPuzzle {
         }
 	}
 
-	public String reverse(String word) {
+	private String reverse(String word) {
 		String reversed = "";
 		for (int i = word.length() - 1; i >= 0; i--) {
 			char ch = word.charAt(i);
@@ -202,6 +200,12 @@ public class WordSearchPuzzle {
 				}
 				i++;
 			}
+		}
+	}
+
+	private void capitalise() {
+		for (int i = 0; i < puzzleWords.size(); i++) {
+			puzzleWords.set(i, puzzleWords.get(i).toUpperCase());
 		}
 	}
 

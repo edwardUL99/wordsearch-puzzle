@@ -11,5 +11,7 @@ public class Driver {
 		System.out.println();
 		System.out.println(test.getPuzzleAsString());
 		System.out.println("\n" + Arrays.deepToString(test.getPuzzleAsGrid()));
+
+		test.showWordSearchPuzzle(false);
 	}
 }

@@ -17,7 +17,6 @@ public class WordSearchPuzzle {
 		this.puzzleWords = userSpecifiedWords;
 		capitalise();
 		generateWordSearchPuzzle();
-		System.out.println(this.directions);
 	}
 
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
@@ -48,6 +47,23 @@ public class WordSearchPuzzle {
 		return null;
 	}
 
+	public void showWordSearchPuzzle(boolean hide) {
+		System.out.println("WordSearch Puzzle");
+		System.out.println("------------------");
+		System.out.println("Unused positions filled with random characters");
+		System.out.println(getPuzzleAsString() + "\n");
+		System.out.println("Words used");
+		if (!hide) {
+			System.out.println("Words used with directions shown");
+			System.out.println(this.directions);
+		} else {
+			for (String str : puzzleWords) {
+				System.out.println(str);
+			}
+		}
+
+	}
+
 	private void generateWordSearchPuzzle() {
 		if (puzzleWords.size() != 0) {
 			final int dimensions = getDimensions();
@@ -56,7 +72,9 @@ public class WordSearchPuzzle {
 			boolean reversed = false, vertical = false;
 			String word = "";
 			while (i >= 0) {
-			    word = puzzleWords.get(i);
+				if (i >= 0) {
+					word = puzzleWords.get(i);
+				}
 				while (!puzzleContainsWord(word, false) && !puzzleContainsWord(word, true)) {
 					char[] wordArray = word.toCharArray();
 					vertical = random.nextBoolean();
@@ -70,6 +88,7 @@ public class WordSearchPuzzle {
 						}
 						attempts++;
 					} else {
+						puzzleWords.remove(i);
 						i--;
 						word = puzzleWords.get(i);
 						attempts = 0;
@@ -173,7 +192,7 @@ public class WordSearchPuzzle {
                 return false;
             }
             for (int i = col; i < puzzle[0].length; i++) {
-                if (puzzle[row][col] != '\u0000') {
+                if (puzzle[row][i] != '\u0000') {
                     return false;
                 }
             }

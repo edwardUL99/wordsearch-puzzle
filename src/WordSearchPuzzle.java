@@ -11,15 +11,17 @@ public class WordSearchPuzzle {
 	private char[][] puzzle;
 	private List<String> puzzleWords;
 	private Random random = new Random();
+	private String directions = "";
 
 	public WordSearchPuzzle(List<String> userSpecifiedWords) {
-		puzzleWords = userSpecifiedWords;
+		this.puzzleWords = userSpecifiedWords;
 		capitalise();
 		generateWordSearchPuzzle();
+		System.out.println(this.directions);
 	}
 
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
-		puzzleWords = new ArrayList<String>(wordCount);
+		this.puzzleWords = new ArrayList<String>(wordCount);
 		readFromFile(wordFile, wordCount, shortest, longest);
 		generateWordSearchPuzzle();
 	}
@@ -50,20 +52,21 @@ public class WordSearchPuzzle {
 		if (puzzleWords.size() != 0) {
 			final int dimensions = getDimensions();
 			puzzle = new char[dimensions][dimensions];
-			int i = puzzleWords.size() - 1, row, col, attempts = 0;
+			int i = puzzleWords.size() - 1, row = 0, col = 0, attempts = 0;
+			boolean reversed = false, vertical = false;
+			String word = "";
 			while (i >= 0) {
-			    String word = puzzleWords.get(i);
-				char[] wordArray = word.toCharArray();
+			    word = puzzleWords.get(i);
 				while (!puzzleContainsWord(word, false) && !puzzleContainsWord(word, true)) {
-					boolean vertical = random.nextBoolean();
-					if (attempts < 100) {
-						System.out.println(word);
+					char[] wordArray = word.toCharArray();
+					vertical = random.nextBoolean();
+					if (attempts < 100 && !(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
-						System.out.printf("%d + %d\n",row, col);
-						System.out.println(ableToInsert(row, col, vertical, word));
 						if (ableToInsert(row, col, vertical, word)) {
-							insert(wordArray, row, col, vertical, random.nextBoolean());
+							reversed = random.nextBoolean();
+							insert(wordArray, row, col, vertical, reversed);
+							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed) + "\n";
 						}
 						attempts++;
 					} else {
@@ -77,6 +80,23 @@ public class WordSearchPuzzle {
 			}
 			fillUnused();
 		}
+	}
+
+	private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed) {
+		char dir = '\u0000';
+		if (vertical && reversed) {
+			row =  row + (word.length() -1);
+			dir = 'U';
+		} else if (vertical) {
+			dir = 'D';
+		} else if (reversed) {
+			col = col + (word.length() - 1);
+			dir = 'L';
+		} else {
+			dir = 'R';
+		}
+
+		return String.format("%s[%d][%d]%c", word, row, col, dir);
 	}
 
 	public void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
@@ -205,7 +225,7 @@ public class WordSearchPuzzle {
 
 	private void capitalise() {
 		for (int i = 0; i < puzzleWords.size(); i++) {
-			puzzleWords.set(i, puzzleWords.get(i).toUpperCase());
+			this.puzzleWords.set(i, puzzleWords.get(i).toUpperCase());
 		}
 	}
 

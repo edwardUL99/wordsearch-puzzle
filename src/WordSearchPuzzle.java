@@ -12,6 +12,7 @@ public class WordSearchPuzzle {
 	private List<String> puzzleWords;
 	private Random random = new Random();
 	private String directions = "";
+	private int dimensions;
 
 	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		this.puzzleWords = userSpecifiedWords;
@@ -66,7 +67,7 @@ public class WordSearchPuzzle {
 
 	private void generateWordSearchPuzzle() {
 		if (puzzleWords.size() != 0) {
-			final int dimensions = getDimensions();
+			this.dimensions = getDimensions();
 			puzzle = new char[dimensions][dimensions];
 			int i = puzzleWords.size() - 1, row = 0, col = 0, attempts = 0;
 			boolean reversed = false, vertical = false, inserted = false;
@@ -76,7 +77,7 @@ public class WordSearchPuzzle {
 				while (!inserted && i >= 0) {
 					char[] wordArray = word.toCharArray();
 					vertical = random.nextBoolean();
-					if (attempts < 20 && !(word.length() > dimensions)) {
+					if (attempts < 100 && !(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
 						if (ableToInsert(row, col, vertical, word)) {
@@ -93,6 +94,7 @@ public class WordSearchPuzzle {
 						if (i >= 0) {
 							word = puzzleWords.get(i);
 						}
+						inserted = false;
 						attempts = 0;
 					}
 				}
@@ -146,7 +148,7 @@ public class WordSearchPuzzle {
 	}
 
 	private boolean ableToInsert(int row, int col, boolean vertical, String word) {
-		if (word.length() > getDimensions()) {
+		if (word.length() > this.dimensions) {
 			return false;
 		}
 	    if (vertical) {

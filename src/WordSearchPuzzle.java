@@ -69,31 +69,34 @@ public class WordSearchPuzzle {
 			final int dimensions = getDimensions();
 			puzzle = new char[dimensions][dimensions];
 			int i = puzzleWords.size() - 1, row = 0, col = 0, attempts = 0;
-			boolean reversed = false, vertical = false;
+			boolean reversed = false, vertical = false, inserted = false;
 			String word = "";
 			while (i >= 0) {
-				if (i >= 0) {
-					word = puzzleWords.get(i);
-				}
-				while (!puzzleContainsWord(word, false) && !puzzleContainsWord(word, true)) {
+				word = puzzleWords.get(i);
+				while (!inserted && i >= 0) {
 					char[] wordArray = word.toCharArray();
 					vertical = random.nextBoolean();
-					if (attempts < 100 && !(word.length() > dimensions)) {
+					if (attempts < 20 && !(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
 						if (ableToInsert(row, col, vertical, word)) {
 							reversed = random.nextBoolean();
 							insert(wordArray, row, col, vertical, reversed);
 							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed) + "\n";
+							inserted = true; //If word was inserted successfully we want to exit the loop
+						} else {
+							attempts++;
 						}
-						attempts++;
 					} else {
 						puzzleWords.remove(i);
 						i--;
-						word = puzzleWords.get(i);
+						if (i >= 0) {
+							word = puzzleWords.get(i);
+						}
 						attempts = 0;
 					}
 				}
+				inserted = false;
 				attempts = 0;
 				i--;
 			}
@@ -140,37 +143,6 @@ public class WordSearchPuzzle {
                 }
             }
         }
-	}
-
-	/**
-	 * This method checks if the puzzle contains the word or not
-	 * @param word	the word to be checked
-	 * @param vertical	whether to check along rows or check along columns
-	 * @return	if the puzzle contains the word
-	 */
-	private boolean puzzleContainsWord(String word, boolean vertical) {
-		char[] singleArray;
-		String builtWord;
-		singleArray = new char[puzzle.length];
-		if (vertical) {
-			for (int row = 0; row < puzzle.length; row++) {
-				for (int col = 0; col < puzzle[0].length; col++) {
-					singleArray[col] = puzzle[col][row];
-				}
-				builtWord = new String(singleArray);
-				if (builtWord.contains(word) || builtWord.contains(reverse(word))) {
-					return true;
-				}
-			}
-		} else {
-			for (char[] ch : puzzle) {
-				builtWord = new String(ch);
-				if (builtWord.contains(word) || builtWord.contains(reverse(word))) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private boolean ableToInsert(int row, int col, boolean vertical, String word) {

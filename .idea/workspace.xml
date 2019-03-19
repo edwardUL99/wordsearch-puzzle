@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -36,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="41" lean-forward="true" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+            <state relative-caret-position="136">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+            <state relative-caret-position="237">
+              <caret line="94" column="24" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,6 +86,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -94,12 +95,15 @@
               <item name="wordsearch-puzzle" type="b2602c69:ProjectViewProjectNode" />
               <item name="wordsearch-puzzle" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="wordsearch-puzzle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordsearch-puzzle" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -167,6 +171,7 @@
       <workItem from="1552856857466" duration="3913000" />
       <workItem from="1552913939801" duration="3459000" />
       <workItem from="1552946558960" duration="4122000" />
+      <workItem from="1552995065703" duration="2789000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -179,7 +184,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33272000" />
+    <option name="totallyTimeSpent" value="36061000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -265,8 +270,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+        <state relative-caret-position="237">
+          <caret line="94" column="24" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -275,8 +280,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="41" lean-forward="true" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+        <state relative-caret-position="136">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

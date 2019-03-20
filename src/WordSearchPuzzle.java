@@ -68,10 +68,10 @@ public class WordSearchPuzzle {
 	private void generateWordSearchPuzzle() {
 		if (puzzleWords.size() != 0) {
 			this.dimensions = getDimensions();
-			puzzle = new char[dimensions][dimensions];
-			int i = puzzleWords.size() - 1, row = 0, col = 0, attempts = 0;
-			boolean reversed = false, vertical = false, inserted = false;
-			String word = "";
+			puzzle = new char[this.dimensions][this.dimensions];
+			int i = puzzleWords.size() - 1, row, col, attempts = 0;
+			boolean reversed, vertical, inserted = false;
+			String word;
 			while (i >= 0) {
 				word = puzzleWords.get(i);
 				while (!inserted && i >= 0) {
@@ -107,7 +107,7 @@ public class WordSearchPuzzle {
 	}
 
 	private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed) {
-		char dir = '\u0000';
+		char dir;
 		if (vertical && reversed) {
 			row =  row + (word.length() -1);
 			dir = 'U';
@@ -118,12 +118,12 @@ public class WordSearchPuzzle {
 			dir = 'L';
 		} else {
 			dir = 'R';
-		}
+		} 
 
 		return String.format("%s[%d][%d]%c", word, row, col, dir);
 	}
 
-	public void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
+	private void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
 		int index = 0;
 		if (reversed) {
 			wordArray = reverse(new String(wordArray)).toCharArray();

@@ -39,7 +39,7 @@ public class WordSearchPuzzle {
             String puzzleString = "";
             for (char[] i : puzzle) {
                 for (char ch : i) {
-                    puzzleString = puzzleString + "\t" + ch;
+                    puzzleString =  puzzleString + "\t" + ch;
                 }
                 puzzleString = puzzleString + "\n";
             }
@@ -70,20 +70,21 @@ public class WordSearchPuzzle {
 			this.dimensions = getDimensions();
 			puzzle = new char[this.dimensions][this.dimensions];
 			int i = puzzleWords.size() - 1, row, col, attempts = 0;
-			boolean reversed, vertical, inserted = false;
+			boolean reversed, vertical, inserted = false, diagonal;
 			String word;
 			while (i >= 0) {
 				word = puzzleWords.get(i);
 				while (!inserted && i >= 0) {
 					char[] wordArray = word.toCharArray();
 					vertical = random.nextBoolean();
-					if (attempts < 100 && !(word.length() > dimensions)) {
+					diagonal = random.nextBoolean();
+					if (attempts < 10 && !(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
-						if (ableToInsert(row, col, vertical, word)) {
+						if (ableToInsert(row, col, vertical, word, diagonal)) {
 							reversed = random.nextBoolean();
-							insert(wordArray, row, col, vertical, reversed);
-							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed) + "\n";
+							insert(wordArray, row, col, vertical, reversed, diagonal);
+							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
 							inserted = true; //If word was inserted successfully we want to exit the loop
 						} else {
 							attempts++;
@@ -98,41 +99,74 @@ public class WordSearchPuzzle {
 						attempts = 0;
 					}
 				}
+				System.out.println(getPuzzleAsString());
 				inserted = false;
 				attempts = 0;
 				i--;
 			}
-			fillUnused();
+			//fillUnused();
 		}
 	}
 
-	private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed) {
-		char dir;
-		if (vertical && reversed) {
+	private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed, boolean diagonal) {
+		String dir;
+		if ((vertical && reversed) && !diagonal) {
 			row =  row + (word.length() -1);
-			dir = 'U';
-		} else if (vertical) {
-			dir = 'D';
-		} else if (reversed) {
+			dir = "U";
+		} else if (vertical && !diagonal) {
+			dir = "D";
+		} else if (reversed && !diagonal) {
 			col = col + (word.length() - 1);
-			dir = 'L';
+			dir = "L";
+		} else if (!reversed && !diagonal) {
+			dir = "R";
 		} else {
-			dir = 'R';
-		} 
+			if (reversed && col > this.dimensions / 2) {
+				col = col - (word.length() - 1);
+				row = row + (word.length() - 1);
+				dir = "LeftRevDiag";
+			} else if (reversed) {
+				col = col + (word.length() - 1);
+				row = row + (word.length() - 1);
+				dir = "RightRevDiag";
+			} else if (col > this.dimensions / 2) {
+				dir = "LeftDownDiag";
+			} else {
+				dir = "RightDownDiag";
+			}
+		}
 
-		return String.format("%s[%d][%d]%c", word, row, col, dir);
+		return String.format("%s[%d][%d]%s", word, row, col, dir);
 	}
 
-	private void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed) {
+	private void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed, boolean diagonal) {
 		int index = 0;
 		if (reversed) {
 			wordArray = reverse(new String(wordArray)).toCharArray();
 		}
-		while (index < wordArray.length) {
-			if (vertical) {
-				puzzle[startingRow++][startingCol] = wordArray[index++];
-			} else {
-				puzzle[startingRow][startingCol++] = wordArray[index++];
+		if (!diagonal) {
+			while (index < wordArray.length) {
+				if (vertical) {
+					puzzle[startingRow++][startingCol] = wordArray[index++];
+				} else {
+					puzzle[startingRow][startingCol++] = wordArray[index++];
+				} 
+			}
+		} else {
+			insertDiagonally(wordArray, startingRow, startingCol);
+		}
+	}
+	
+	private void insertDiagonally(char[] wordArray, int row, int col) {
+		int index = 0;
+		int startingCol = col;
+		if (row < this.dimensions / 2) {
+			while (index < wordArray.length) {
+				if (startingCol < this.dimensions / 2) {
+					puzzle[row++][col++] = wordArray[index++];
+				} else {
+					puzzle[row++][col--] = wordArray[index++];
+				}
 			}
 		}
 	}
@@ -147,11 +181,11 @@ public class WordSearchPuzzle {
         }
 	}
 
-	private boolean ableToInsert(int row, int col, boolean vertical, String word) {
+	private boolean ableToInsert(int row, int col, boolean vertical, String word, boolean diagonal) {
 		if (word.length() > this.dimensions) {
 			return false;
 		}
-	    if (vertical) {
+	    if (vertical && !diagonal) {
             if (word.length() > (puzzle.length - row)) {
                 return false;
             }
@@ -161,17 +195,47 @@ public class WordSearchPuzzle {
                 }
             }
 	        return true;
-        } else {
+        } else if (!vertical && !diagonal) {
             if (word.length() > (puzzle.length - col)) {
                 return false;
             }
-            for (int i = col; i < puzzle[0].length; i++) {
+            for (int i = col; i < puzzle.length; i++) {
                 if (puzzle[row][i] != '\u0000') {
                     return false;
                 }
             }
             return true;
+        } else {
+        	return canInsertDiagonally(row, col, word);
         }
+	}
+	
+	private boolean canInsertDiagonally(int row, int col, String word) {
+		if (row < this.dimensions / 2 && (!(row + (word.length() - 1) >= this.dimensions) || !(col + (word.length() - 1) >= this.dimensions))) {
+			int difference = puzzle.length - word.length();
+			if (col > this.dimensions/2) {
+				int i = row;
+				while (i < puzzle.length && col > 0) {
+					if (puzzle[i++][col--] != '\0') {
+						return false;
+					}
+				}
+				if (i >= (word.length() - 1)) {
+					return true;
+				}
+			} else {
+				int i = row;
+				while (i < puzzle.length && col < puzzle[0].length) {
+					if (puzzle[i++][col++] != '\0') {
+						return false;
+					}
+				}
+				if (i >= (word.length() - 1)) {
+				return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private String reverse(String word) {

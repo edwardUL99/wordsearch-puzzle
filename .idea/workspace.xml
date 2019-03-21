@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -37,10 +38,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="4" />
+            <state relative-caret-position="85">
+              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#412#420#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="17">
+              <caret line="213" column="142" selection-start-line="213" selection-start-column="142" selection-end-line="213" selection-end-column="142" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,7 +80,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -177,6 +179,7 @@
       <workItem from="1552995065703" duration="2789000" />
       <workItem from="1553032764637" duration="3431000" />
       <workItem from="1553080092884" duration="223000" />
+      <workItem from="1553179789236" duration="4392000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -189,7 +192,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39715000" />
+    <option name="totallyTimeSpent" value="44107000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -202,6 +205,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3290469" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -212,7 +216,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32411674" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4623656" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39938557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -247,14 +251,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/WordSearchPuzzle.java</url>
-          <line>16</line>
-          <properties class="WordSearchPuzzle" method="&lt;init&gt;">
+          <line>67</line>
+          <properties class="WordSearchPuzzle" method="generateWordSearchPuzzle">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="setValue">
+      <expression>
+        <expression-string>90</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/words.txt">
@@ -275,18 +288,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="4" />
+        <state relative-caret-position="85">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#412#420#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="17">
+          <caret line="213" column="142" selection-start-line="213" selection-start-column="142" selection-end-line="213" selection-end-column="142" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

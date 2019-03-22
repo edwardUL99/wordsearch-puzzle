@@ -69,16 +69,16 @@ public class WordSearchPuzzle {
 		if (puzzleWords.size() != 0) {
 			this.dimensions = getDimensions();
 			puzzle = new char[this.dimensions][this.dimensions];
-			int i = puzzleWords.size() - 1, row, col, attempts = 0;
+			int row, col, attempts = 0;
 			boolean reversed, vertical, inserted = false, diagonal;
 			String word;
-			while (i >= 0) {
+			for (int i = puzzleWords.size() - 1; i >=0; i--) {
 				word = puzzleWords.get(i);
 				while (!inserted && i >= 0) {
 					char[] wordArray = word.toCharArray();
 					vertical = random.nextBoolean();
 					diagonal = random.nextBoolean();
-					if (attempts < 10 && !(word.length() > dimensions)) {
+					if (attempts < 100 && !(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
 						if (ableToInsert(row, col, vertical, word, diagonal)) {
@@ -99,12 +99,10 @@ public class WordSearchPuzzle {
 						attempts = 0;
 					}
 				}
-				System.out.println(getPuzzleAsString());
 				inserted = false;
 				attempts = 0;
-				i--;
 			}
-			//fillUnused();
+			fillUnused();
 		}
 	}
 
@@ -206,37 +204,32 @@ public class WordSearchPuzzle {
             }
             return true;
         } else {
-        	return canInsertDiagonally(row, col, word);
+        	return canInsDiag(row, col, word);
         }
 	}
 	
-	private boolean canInsertDiagonally(int row, int col, String word) {
-		if (row < this.dimensions / 2 && (!(row + (word.length() - 1) >= this.dimensions) || !(col + (word.length() - 1) >= this.dimensions))) {
-			int difference = puzzle.length - word.length();
-			if (col > this.dimensions/2) {
-				int i = row;
-				while (i < puzzle.length && col > 0) {
-					if (puzzle[i++][col--] != '\0') {
-						return false;
-					}
-				}
-				if (i >= (word.length() - 1)) {
-					return true;
-				}
-			} else {
-				int i = row;
-				while (i < puzzle.length && col < puzzle[0].length) {
-					if (puzzle[i++][col++] != '\0') {
-						return false;
-					}
-				}
-				if (i >= (word.length() - 1)) {
-				return true;
-				}
-			}
-		}
-		return false;
-	}
+	private boolean canInsDiag(int row, int col, String word) {
+	    if (row + word.length() < this.dimensions) {
+	        int startingCol = col;
+	        int count = 0;
+	        for (int i = row; i < row + word.length() && (col < this.dimensions - 1 || col > 0); i++) {
+	            if (startingCol < this.dimensions / 2) {
+	                if (puzzle[i][col++] != '\u0000') {
+	                    return false;
+                    }
+                } else {
+	                if (puzzle[i][col--] != '\u0000') {
+	                    return false;
+                    }
+                }
+	            count++;
+            }
+	        if (count == word.length()) {
+	            return true;
+            }
+        }
+	    return false;
+    }
 
 	private String reverse(String word) {
 		String reversed = "";

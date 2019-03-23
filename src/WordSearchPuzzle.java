@@ -69,35 +69,28 @@ public class WordSearchPuzzle {
 		if (puzzleWords.size() != 0) {
 			this.dimensions = getDimensions();
 			puzzle = new char[this.dimensions][this.dimensions];
-			int row, col, attempts = 0;
+			int size = puzzleWords.size() - 1, row, col, attempts = 0;
 			boolean reversed, vertical, inserted = false, diagonal;
-			String word;
-			for (int i = puzzleWords.size() - 1; i >=0; i--) {
-				word = puzzleWords.get(i);
-				while (!inserted && i >= 0) {
-					char[] wordArray = word.toCharArray();
+			for (int i = size; i >=0; i--) {
+				String word = puzzleWords.get(i);
+				while (!inserted && attempts < 100) {
 					vertical = random.nextBoolean();
 					diagonal = random.nextBoolean();
-					if (attempts < 100 && !(word.length() > dimensions)) {
+					if (!(word.length() > dimensions)) {
 						row = (int) (Math.random() * puzzle.length);
 						col = (int) (Math.random() * puzzle[0].length);
 						if (ableToInsert(row, col, vertical, word, diagonal)) {
 							reversed = random.nextBoolean();
-							insert(wordArray, row, col, vertical, reversed, diagonal);
+							insert(word, row, col, vertical, reversed, diagonal);
 							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
 							inserted = true; //If word was inserted successfully we want to exit the loop
 						} else {
 							attempts++;
 						}
-					} else {
-						puzzleWords.remove(i);
-						i--;
-						if (i >= 0) {
-							word = puzzleWords.get(i);
-						}
-						inserted = false;
-						attempts = 0;
 					}
+				}
+				if (attempts == 5) {
+					puzzleWords.remove(i--);
 				}
 				inserted = false;
 				attempts = 0;
@@ -137,8 +130,9 @@ public class WordSearchPuzzle {
 		return String.format("%s[%d][%d]%s", word, row, col, dir);
 	}
 
-	private void insert(char[] wordArray, int startingRow, int startingCol, boolean vertical, boolean reversed, boolean diagonal) {
+	private void insert(String word, int startingRow, int startingCol, boolean vertical, boolean reversed, boolean diagonal) {
 		int index = 0;
+		char[] wordArray = word.toCharArray();
 		if (reversed) {
 			wordArray = reverse(new String(wordArray)).toCharArray();
 		}
@@ -183,36 +177,27 @@ public class WordSearchPuzzle {
 		if (word.length() > this.dimensions) {
 			return false;
 		}
-	    if (vertical && !diagonal) {
-            if (word.length() > (puzzle.length - row)) {
+	    if (!diagonal) {
+	    	int rowOrCol = vertical ? row:col;
+            if (word.length() > (puzzle.length - rowOrCol)) {
                 return false;
             }
-	        for (int i = row; i < puzzle.length; i++) {
-	            if (puzzle[i][col] != '\u0000') {
+	        for (int i = rowOrCol; i < rowOrCol + word.length(); i++) {
+	            if (puzzle[i][col] != '\u0000' || puzzle[row][i] != '\u0000') {
 	                return false;
                 }
             }
-	        return true;
-        } else if (!vertical && !diagonal) {
-            if (word.length() > (puzzle.length - col)) {
-                return false;
-            }
-            for (int i = col; i < puzzle.length; i++) {
-                if (puzzle[row][i] != '\u0000') {
-                    return false;
-                }
-            }
-            return true;
+				return true;
         } else {
         	return canInsDiag(row, col, word);
         }
 	}
 	
 	private boolean canInsDiag(int row, int col, String word) {
-	    if (row + word.length() < this.dimensions) {
+	    if (row + word.length() < this.dimensions - 1) {
 	        int startingCol = col;
 	        int count = 0;
-	        for (int i = row; i < row + word.length() && (col < this.dimensions - 1 || col > 0); i++) {
+	        for (int i = row; i < row + word.length() && (col < this.dimensions - 1 && col > 0); i++) {
 	            if (startingCol < this.dimensions / 2) {
 	                if (puzzle[i][col++] != '\u0000') {
 	                    return false;

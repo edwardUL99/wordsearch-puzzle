@@ -89,7 +89,7 @@ public class WordSearchPuzzle {
 						}
 					}
 				}
-				if (attempts == 5) {
+				if (attempts == 100) {
 					puzzleWords.remove(i--);
 				}
 				inserted = false;
@@ -152,13 +152,11 @@ public class WordSearchPuzzle {
 	private void insertDiagonally(char[] wordArray, int row, int col) {
 		int index = 0;
 		int startingCol = col;
-		if (row < this.dimensions / 2) {
-			while (index < wordArray.length) {
-				if (startingCol < this.dimensions / 2) {
-					puzzle[row++][col++] = wordArray[index++];
-				} else {
-					puzzle[row++][col--] = wordArray[index++];
-				}
+		while (index < wordArray.length) {
+			if (startingCol < this.dimensions / 2) {
+				puzzle[row++][col++] = wordArray[index++];
+			} else {
+				puzzle[row++][col--] = wordArray[index++];
 			}
 		}
 	}
@@ -194,7 +192,7 @@ public class WordSearchPuzzle {
 	}
 	
 	private boolean canInsDiag(int row, int col, String word) {
-	    if (row + word.length() < this.dimensions - 1) {
+	    if (row + word.length() < this.dimensions && row < this.dimensions/2) {
 	        int startingCol = col;
 	        int count = 0;
 	        for (int i = row; i < row + word.length() && (col < this.dimensions - 1 && col > 0); i++) {

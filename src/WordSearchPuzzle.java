@@ -71,22 +71,20 @@ public class WordSearchPuzzle {
 			puzzle = new char[this.dimensions][this.dimensions];
 			int size = puzzleWords.size() - 1, row, col, attempts = 0;
 			boolean reversed, vertical, inserted = false, diagonal;
-			for (int i = size; i >=0; i--) {
+			for (int i = size; i >= 0; i--) {
 				String word = puzzleWords.get(i);
-				while (!inserted && attempts < 100) {
+				while ((!inserted && attempts < 100) && word.length() <= this.dimensions) {
 					vertical = random.nextBoolean();
 					diagonal = random.nextBoolean();
-					if (!(word.length() > dimensions)) {
-						row = (int) (Math.random() * puzzle.length);
-						col = (int) (Math.random() * puzzle[0].length);
-						if (ableToInsert(row, col, vertical, word, diagonal)) {
-							reversed = random.nextBoolean();
-							insert(word, row, col, vertical, reversed, diagonal);
-							this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
-							inserted = true; //If word was inserted successfully we want to exit the loop
-						} else {
-							attempts++;
-						}
+					row = (int) (Math.random() * puzzle.length);
+					col = (int) (Math.random() * puzzle[0].length);
+					if (ableToInsert(row, col, vertical, word, diagonal)) {
+						reversed = random.nextBoolean();
+						insert(word, row, col, vertical, reversed, diagonal);
+						this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
+						inserted = true; //If word was inserted successfully we want to exit the loop
+					} else {
+						attempts++;
 					}
 				}
 				if (attempts == 100) {
@@ -181,7 +179,7 @@ public class WordSearchPuzzle {
                 return false;
             }
 	        for (int i = rowOrCol; i < rowOrCol + word.length(); i++) {
-	            if (puzzle[i][col] != '\u0000' || puzzle[row][i] != '\u0000') {
+	            if ((vertical && puzzle[i][col] != '\u0000') || (!vertical && puzzle[row][i] != '\u0000')) {
 	                return false;
                 }
             }

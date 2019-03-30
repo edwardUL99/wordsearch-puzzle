@@ -69,9 +69,9 @@ public class WordSearchPuzzle {
 		if (puzzleWords.size() != 0) {
 			this.dimensions = getDimensions();
 			puzzle = new char[this.dimensions][this.dimensions];
-			int size = puzzleWords.size() - 1, row, col, attempts = 0;
+			int row, col, attempts = 0;
 			boolean reversed, vertical, inserted = false, diagonal;
-			for (int i = size; i >= 0; i--) {
+			for (int i = 0; i < puzzleWords.size(); i++) {
 				String word = puzzleWords.get(i);
 				while ((!inserted && attempts < 100) && word.length() <= this.dimensions) {
 					vertical = random.nextBoolean();

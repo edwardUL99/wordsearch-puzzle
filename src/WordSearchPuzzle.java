@@ -81,7 +81,6 @@ public class WordSearchPuzzle {
 					if (ableToInsert(row, col, vertical, word, diagonal)) {
 						reversed = random.nextBoolean();
 						insert(word, row, col, vertical, reversed, diagonal);
-						this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
 						inserted = true; //If word was inserted successfully we want to exit the loop
 					} else {
 						attempts++;
@@ -145,6 +144,7 @@ public class WordSearchPuzzle {
 		} else {
 			insertDiagonally(wordArray, startingRow, startingCol);
 		}
+        this.directions = this.directions + dirsToString(startingRow, startingCol, word, vertical, reversed, diagonal) + "\n";
 	}
 	
 	private void insertDiagonally(char[] wordArray, int row, int col) {

@@ -8,10 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/Driver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/words.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,38 +34,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="74" selection-start-line="5" selection-start-column="74" selection-end-line="5" selection-end-column="74" />
+            <state relative-caret-position="136">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#397#405#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/words.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="8" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
+            <state relative-caret-position="-502">
+              <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#822#823#0" expanded="true" />
-                <element signature="e#847#848#0" expanded="true" />
-                <element signature="e#885#886#0" expanded="true" />
-                <element signature="e#905#906#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -237,7 +223,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60743000" />
+    <option name="totallyTimeSpent" value="60836000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -260,7 +246,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4623656" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4623656" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39938557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -339,26 +325,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Driver.java">
+    <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="74" selection-start-line="5" selection-start-column="74" selection-end-line="5" selection-end-column="74" />
+        <state relative-caret-position="-502">
+          <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
+    <entry file="file://$PROJECT_DIR$/src/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
+        <state relative-caret-position="136">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#822#823#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#905#906#0" expanded="true" />
+            <element signature="e#397#405#0" expanded="true" />
           </folding>
         </state>
       </provider>

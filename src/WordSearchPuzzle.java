@@ -87,7 +87,7 @@ public class WordSearchPuzzle {
 					}
 				}
 				if (attempts == 100) {
-					puzzleWords.remove(i--);
+					puzzleWords.remove(i++);
 				}
 				inserted = false;
 				attempts = 0;
@@ -128,7 +128,7 @@ public class WordSearchPuzzle {
 	}
 
 	private void insert(String word, int startingRow, int startingCol, boolean vertical, boolean reversed, boolean diagonal) {
-		int index = 0;
+		int index = 0, row = startingRow, col = startingCol;
 		char[] wordArray = word.toCharArray();
 		if (reversed) {
 			wordArray = reverse(new String(wordArray)).toCharArray();
@@ -144,7 +144,7 @@ public class WordSearchPuzzle {
 		} else {
 			insertDiagonally(wordArray, startingRow, startingCol);
 		}
-        this.directions = this.directions + dirsToString(startingRow, startingCol, word, vertical, reversed, diagonal) + "\n";
+        this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
 	}
 	
 	private void insertDiagonally(char[] wordArray, int row, int col) {

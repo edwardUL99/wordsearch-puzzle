@@ -13,3 +13,16 @@ snake
 hare
 mare
 goose
+rabbit
+water
+kangaroo
+trees
+dogs
+houses
+shelters
+god
+humans
+cancer
+leo
+virgo
+capricorn

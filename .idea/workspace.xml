@@ -48,14 +48,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="202" column="13" lean-forward="true" selection-start-line="202" selection-start-column="13" selection-end-line="202" selection-end-column="13" />
+            <state relative-caret-position="265">
+              <caret line="248" column="42" selection-start-line="248" selection-start-column="42" selection-end-line="248" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#822#823#0" expanded="true" />
-                <element signature="e#847#848#0" expanded="true" />
-                <element signature="e#885#886#0" expanded="true" />
-                <element signature="e#905#906#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,10 +83,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="784" />
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="775" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -193,6 +188,7 @@
       <workItem from="1553631974048" duration="2364000" />
       <workItem from="1554156149389" duration="1345000" />
       <workItem from="1554393932880" duration="1622000" />
+      <workItem from="1554409007845" duration="202000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -233,7 +229,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65143000" />
+    <option name="totallyTimeSpent" value="65374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -245,7 +241,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-7" y="0" width="697" height="775" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3290469" />
@@ -326,14 +322,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="202" column="13" lean-forward="true" selection-start-line="202" selection-start-column="13" selection-end-line="202" selection-end-column="13" />
+        <state relative-caret-position="265">
+          <caret line="248" column="42" selection-start-line="248" selection-start-column="42" selection-end-line="248" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#822#823#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#905#906#0" expanded="true" />
           </folding>
         </state>
       </provider>

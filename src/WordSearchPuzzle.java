@@ -53,12 +53,12 @@ public class WordSearchPuzzle {
 		System.out.println("------------------");
 		System.out.println("Unused positions filled with random characters");
 		System.out.println(getPuzzleAsString() + "\n");
-		System.out.println("Words used");
 		if (!hide) {
 			System.out.println("Words used with directions shown");
 			System.out.println(this.directions);
 		} else {
-			for (int i = puzzleWords.size() - 1; i >= 0; i--) {
+            System.out.println("Words used");
+			for (int i = 0; i < puzzleWords.size(); i++) {
 				System.out.println(puzzleWords.get(i));
 			}
 		}

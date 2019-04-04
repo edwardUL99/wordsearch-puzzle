@@ -69,28 +69,21 @@ public class WordSearchPuzzle {
 		if (puzzleWords.size() != 0) {
 			this.dimensions = getDimensions();
 			puzzle = new char[this.dimensions][this.dimensions];
-			int row, col, attempts = 0;
 			boolean reversed, vertical, inserted = false, diagonal;
+			int[] coords;
 			for (int i = 0; i < puzzleWords.size(); i++) {
 				String word = puzzleWords.get(i);
-				while ((!inserted && attempts < 100) && word.length() <= this.dimensions) {
+				while (!inserted && word.length() <= this.dimensions) {
 					vertical = random.nextBoolean();
 					diagonal = random.nextBoolean();
-					row = (int) (Math.random() * puzzle.length);
-					col = (int) (Math.random() * puzzle[0].length);
-					if (ableToInsert(row, col, vertical, word, diagonal)) {
+					coords = generateCoordinates(word, vertical, diagonal);
+					if (coords != null) {
 						reversed = random.nextBoolean();
-						insert(word, row, col, vertical, reversed, diagonal);
+						insert(word, coords[0], coords[1], vertical, reversed, diagonal);
 						inserted = true; //If word was inserted successfully we want to exit the loop
-					} else {
-						attempts++;
 					}
 				}
-				if (attempts == 100) {
-					puzzleWords.remove(i++);
-				}
 				inserted = false;
-				attempts = 0;
 			}
 			fillUnused();
 		}
@@ -210,6 +203,29 @@ public class WordSearchPuzzle {
             }
         }
 	    return false;
+    }
+
+    private int[] generateCoordinates(String word, boolean vertical, boolean diagonal) {
+	    int[] coords = new int[2];
+	    int attempts = 0;
+	    boolean canInsert = false;
+	    while (attempts < 100 && !canInsert) {
+            int row = random.nextInt(this.dimensions);
+            int col = random.nextInt(this.dimensions);
+            if (ableToInsert(row, col, vertical, word, diagonal)) {
+                coords[0] = row;
+                coords[1] = col;
+                canInsert = true;
+            } else {
+                attempts++;
+            }
+        }
+	    if (attempts == 100) {
+            coords = null;
+            puzzleWords.remove(word);
+        }
+
+	    return coords;
     }
 
 	private String reverse(String word) {

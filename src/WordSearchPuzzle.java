@@ -58,7 +58,7 @@ public class WordSearchPuzzle {
             System.out.println(this.directions);
         } else {
             System.out.println("Words used");
-            for (int i = puzzleWords.size() - 1; i >= 0; i--) {
+            for (int i = 0; i < puzzleWords.size(); i++) {
                 System.out.println(puzzleWords.get(i));
             }
         }

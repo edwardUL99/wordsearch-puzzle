@@ -8,6 +8,7 @@ giraffe
 turtle
 horse
 monkey
+sch0ol
 fish
 snake
 hare

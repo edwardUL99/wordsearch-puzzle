@@ -162,7 +162,20 @@ public class WordSearchPuzzle {
         }
 	}
 
+	private boolean checkWord(String word, String compareWord) {
+	    String builtWord = "";
+	    for (int i = 0; i < word.length(); i++) {
+	        if (compareWord.charAt(i) == '?') {
+	            builtWord += word.charAt(i);
+            } else {
+	            builtWord += compareWord.charAt(i);
+            }
+        }
+	    return builtWord.equals(word);
+    }
+
 	private boolean ableToInsert(int row, int col, boolean vertical, String word, boolean diagonal) {
+	    String compareWord = "";
 		if (word.length() > this.dimensions) {
 			return false;
 		}
@@ -171,15 +184,29 @@ public class WordSearchPuzzle {
             if (word.length() > (puzzle.length - rowOrCol)) {
                 return false;
             }
-	        for (int i = rowOrCol; i < rowOrCol + word.length(); i++) {
-	            if ((vertical && puzzle[i][col] != '\u0000') || (!vertical && puzzle[row][i] != '\u0000')) {
-	                return false;
+            if (vertical && row + word.length() < this.dimensions) {
+                for (int i = row; i < row + word.length(); i++) {
+                    if (puzzle[i][col] != '\u0000') {
+                        compareWord += '?';
+                    } else {
+                        compareWord += puzzle[i][col];
+                    }
                 }
+            } else if (col + word.length() < this.dimensions){
+                for (int i = col; i < col + word.length(); i++) {
+                    if (puzzle[row][i] != '\u0000') {
+                        compareWord += '?';
+                    } else {
+                        compareWord += puzzle[row][i];
+                    }
+                }
+            } else {
+                return checkWord(word, compareWord);
             }
-				return true;
         } else {
         	return canInsDiag(row, col, word);
         }
+	    return false;
 	}
 	
 	private boolean canInsDiag(int row, int col, String word) {

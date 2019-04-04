@@ -71,18 +71,22 @@ public class WordSearchPuzzle {
 			puzzle = new char[this.dimensions][this.dimensions];
 			boolean reversed, vertical, inserted = false, diagonal;
 			int[] coords;
+			int attempts = 0;
 			for (int i = 0; i < puzzleWords.size(); i++) {
 				String word = puzzleWords.get(i);
-				while (!inserted && word.length() <= this.dimensions) {
+				while (!inserted && (attempts < 100 && word.length() <= this.dimensions)) {
 					vertical = random.nextBoolean();
-					diagonal = random.nextBoolean();
+					diagonal = false;//random.nextBoolean();
 					coords = generateCoordinates(word, vertical, diagonal);
 					if (coords != null) {
 						reversed = random.nextBoolean();
 						insert(word, coords[0], coords[1], vertical, reversed, diagonal);
 						inserted = true; //If word was inserted successfully we want to exit the loop
-					}
+					} else {
+					    attempts++;
+                    }
 				}
+				attempts = 0;
 				inserted = false;
 			}
 			fillUnused();
@@ -187,26 +191,26 @@ public class WordSearchPuzzle {
             if (vertical && row + word.length() < this.dimensions) {
                 for (int i = row; i < row + word.length(); i++) {
                     if (puzzle[i][col] != '\u0000') {
-                        compareWord += '?';
-                    } else {
                         compareWord += puzzle[i][col];
+                    } else {
+                        compareWord += '?';
                     }
                 }
             } else if (col + word.length() < this.dimensions){
                 for (int i = col; i < col + word.length(); i++) {
                     if (puzzle[row][i] != '\u0000') {
-                        compareWord += '?';
-                    } else {
                         compareWord += puzzle[row][i];
+                    } else {
+                        compareWord += '?';
                     }
                 }
             } else {
-                return checkWord(word, compareWord);
+                return false;
             }
+            return checkWord(word, compareWord);
         } else {
-        	return canInsDiag(row, col, word);
+            return canInsDiag(row, col, word);
         }
-	    return false;
 	}
 	
 	private boolean canInsDiag(int row, int col, String word) {

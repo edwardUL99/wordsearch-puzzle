@@ -246,8 +246,7 @@ public class WordSearchPuzzle {
             String lineFromFile;
             lineFromFile = aBufferReader.readLine();
             while (lineFromFile != null) {
-                String regex = "([A-Za-z]{" + shortest + "," + longest + "})";
-                if (lineFromFile.matches(regex)) {
+                if (lineFromFile.matches("([A-Za-z]{" + shortest + "," + longest + "})")) {
                     chosenWords.add(lineFromFile.toUpperCase());
                 }
                 lineFromFile = aBufferReader.readLine();

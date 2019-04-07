@@ -83,7 +83,8 @@ public class WordSearchPuzzle {
 						insert(word, coords[0], coords[1], vertical, reversed, diagonal);
 						inserted = true; //If word was inserted successfully we want to exit the loop
 					} else {
-					    attempts++;
+					    attempts = 100;
+					    puzzleWords.remove(i);
                     }
 				}
 				attempts = 0;
@@ -253,7 +254,6 @@ public class WordSearchPuzzle {
         }
 	    if (attempts == 100) {
             coords = null;
-            puzzleWords.remove(word);
         }
 
 	    return coords;

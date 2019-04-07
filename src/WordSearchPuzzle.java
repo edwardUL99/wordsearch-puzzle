@@ -156,7 +156,7 @@ public class WordSearchPuzzle {
         for (int row = 0; row < puzzle.length; row++) {
             for (int col = 0; col < puzzle[0].length; col++) {
                 if (puzzle[row][col] == '\u0000') {
-                    puzzle[row][col] = (char)(Math.random() * (91 - 65) + 65);
+                    puzzle[row][col] = (char)(Math.random() * 26 + 'A');
                 }
             }
         }

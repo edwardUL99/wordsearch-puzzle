@@ -17,7 +17,12 @@ public class WordSearchPuzzle {
 	public WordSearchPuzzle(List<String> userSpecifiedWords) {
 		this.puzzleWords = userSpecifiedWords;
 		capitalise();
-		generateWordSearchPuzzle();
+		puzzle = new char[9][9];
+		this.dimensions = 9;
+		insert("BOAT", 3, 3, false, false, false);
+		canIntersect("BOAT", "RABBIT", 3, 3, false);
+	
+		//generateWordSearchPuzzle();
 	}
 
 	public WordSearchPuzzle(String wordFile, int wordCount, int shortest, int longest) {
@@ -212,6 +217,24 @@ public class WordSearchPuzzle {
         } else {
             return canInsDiag(row, col, word);
         }
+	}
+	
+	private boolean canIntersect(String word1, String word2, int row1, int col1, boolean vertical) {
+		if (!vertical) {
+			for (int j = 0; j < word1.length(); j++) {
+				for (int k = 0; k < word2.length(); k++) {
+					System.out.printf("Word1 char: %c Word2 char: %c\n", word1.charAt(j), word2.charAt(k));
+					if (word1.charAt(j) == word2.charAt(k)) {
+						if (ableToInsert(row1 - k, col1 + j, true, word2, false)) {
+							System.out.println("Can Intersect");
+							insert(word2, row1 - k, col1 + j, true, false, false);
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	private boolean canInsDiag(int row, int col, String word) {

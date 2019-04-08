@@ -10,7 +10,7 @@ import java.io.*;
 public class WordSearchPuzzle {
     private char[][] puzzle;
     private List<String> puzzleWords;
-    private Random random = new Random();
+    private final Random random = new Random();
     private String directions = "";
     private int dimensions;
 
@@ -73,7 +73,7 @@ public class WordSearchPuzzle {
             int[] coords;
             for (int i = 0; i < puzzleWords.size(); i++) {
                 String word = puzzleWords.get(i);
-                while (!inserted && word.length() <= this.dimensions) {
+                while (!inserted) {
                     vertical = random.nextBoolean();
                     diagonal = random.nextBoolean();
                     coords = generateCoordinates(word, vertical, diagonal);
@@ -198,10 +198,7 @@ public class WordSearchPuzzle {
                 }
                 count++;
             }
-            if (count != word.length()) {
-                return false;
-            }
-            return true;
+            return count == word.length();
         }
         return false;
     }
@@ -210,7 +207,7 @@ public class WordSearchPuzzle {
         int[] coords = new int[2];
         int attempts = 0;
         boolean canInsert = false;
-        while (attempts < 100 && !canInsert) {
+        while (attempts < 100 && (!canInsert && word.length() <= this.dimensions)) {
             int row = random.nextInt(this.dimensions);
             int col = random.nextInt(this.dimensions);
             if (ableToInsert(row, col, vertical, word, diagonal)) {

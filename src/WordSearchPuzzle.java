@@ -73,20 +73,23 @@ public class WordSearchPuzzle {
      * @param hide Hides/Unhides the directions to find the words in
      */
     public void showWordSearchPuzzle(boolean hide) {
-        System.out.println("WordSearch Puzzle");
-        System.out.println("------------------");
-        System.out.println("Unused positions filled with random characters");
-        System.out.println(getPuzzleAsString() + "\n");
-        if (!hide) {
-            System.out.println("Words used with directions shown");
-            System.out.println(this.directions);
-        } else {
-            System.out.println("Words used");
-            for (int i = 0; i < puzzleWords.size(); i++) {
-                System.out.println(puzzleWords.get(i));
+        if (puzzleWords.size() != 0) {
+            System.out.println("WordSearch Puzzle");
+            System.out.println("------------------");
+            System.out.println("Unused positions filled with random characters");
+            System.out.println(getPuzzleAsString() + "\n");
+            if (!hide) {
+                System.out.println("Words used with directions shown");
+                System.out.println(this.directions);
+            } else {
+                System.out.println("Words used");
+                for (int i = 0; i < puzzleWords.size(); i++) {
+                    System.out.println(puzzleWords.get(i));
+                }
             }
+        } else {
+            System.out.println("No wordsearch puzzle was generated. Try the following: \n 1)Try increasing the word count to be used \n 2)Reduce the longest word length \n 3)Reduce the shortest word length");
         }
-
     }
 
     /**
@@ -108,8 +111,10 @@ public class WordSearchPuzzle {
                     if (coords != null) {
                         reversed = random.nextBoolean();
                         insert(word, coords[0], coords[1], vertical, reversed, diagonal);
-                        inserted = true; //If word was inserted successfully we want to exit the loop
+                    } else {
+                        if (i >= 0) i--;
                     }
+                    inserted = true; //If word was inserted successfully we want to exit the loop
                 }
             }
             fillUnused();
@@ -234,7 +239,7 @@ public class WordSearchPuzzle {
         }
         if (!diagonal) {
             int rowOrCol = vertical ? row:col;
-            if (word.length() > (puzzle.length - rowOrCol)) {
+            if ((rowOrCol + word.length()) >= this.dimensions) {
                 return false;
             }
             for (int i = rowOrCol; i < rowOrCol + word.length(); i++) {
@@ -256,7 +261,8 @@ public class WordSearchPuzzle {
      * @return whether the word can be inserted diagonally or not
      */
     private boolean canInsDiag(int row, int col, String word) {
-        if (row + word.length() < this.dimensions && row < this.dimensions/2) {
+        if ((row + word.length() < this.dimensions && row < this.dimensions/2) &&
+                ((col + word.length() < this.dimensions || col - word.length() >= 0) && col < this.dimensions)) {
             int startingCol = col;
             int count = 0;
             for (int i = row; i < row + word.length() && (col < this.dimensions - 1 && col > 0); i++) {
@@ -287,7 +293,7 @@ public class WordSearchPuzzle {
         int[] coords = new int[2];
         int attempts = 0;
         boolean canInsert = false;
-        while (attempts < 100 && (!canInsert && word.length() <= this.dimensions)) {
+        while (attempts < 100 && (!canInsert && word.length() < this.dimensions)) {
             int row = random.nextInt(this.dimensions);
             int col = random.nextInt(this.dimensions);
             if (ableToInsert(row, col, vertical, word, diagonal)) {
@@ -298,7 +304,7 @@ public class WordSearchPuzzle {
                 attempts++;
             }
         }
-        if (attempts == 100) {
+        if (attempts == 100 || word.length() >= this.dimensions ) {
             coords = null;
             puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
         }
@@ -333,7 +339,7 @@ public class WordSearchPuzzle {
             FileReader aFileReader = new FileReader(wordFile);
             BufferedReader aBufferReader = new BufferedReader(aFileReader);
             String lineFromFile = aBufferReader.readLine();
-            while (lineFromFile != null) {
+            while (lineFromFile != null && shortest >= 0) {
                 if (lineFromFile.matches("([A-Za-z]{" + shortest + "," + longest + "})")) {
                     chosenWords.add(lineFromFile.toUpperCase());
                 }

@@ -55,14 +55,17 @@ public class WordSearchPuzzle {
      * @return The puzzle is returned as a formatted String with just the wordsearch puzzle
      */
     public String getPuzzleAsString() {
-        String puzzleString = "";
-        for (char[] i : puzzle) {
-            for (char ch : i) {
-                puzzleString += "\t" + ch;
+        if (this.puzzle != null) {
+            String puzzleString = "";
+            for (char[] i : puzzle) {
+                for (char ch : i) {
+                    puzzleString += "\t" + ch;
+                }
+                puzzleString += "\n";
             }
-            puzzleString += "\n";
+            return puzzleString;
         }
-        return puzzleString;
+        return null;
     }
 
     /**
@@ -90,13 +93,14 @@ public class WordSearchPuzzle {
      * The main private ethod which is responsible for populating the grid with help of the numerous helper methods
      */
     private void generateWordSearchPuzzle() {
-        if (puzzleWords.size() != 0) {
+       if (puzzleWords.size() != 0) {
             this.dimensions = getDimensions();
             puzzle = new char[this.dimensions][this.dimensions];
-            boolean reversed, vertical, inserted = false, diagonal;
+            boolean reversed, vertical, diagonal;
             int[] coords;
             for (int i = 0; i < puzzleWords.size(); i++) {
                 String word = puzzleWords.get(i);
+                boolean inserted = false;
                 while (!inserted) {
                     vertical = random.nextBoolean();
                     diagonal = random.nextBoolean();
@@ -107,7 +111,6 @@ public class WordSearchPuzzle {
                         inserted = true; //If word was inserted successfully we want to exit the loop
                     }
                 }
-                inserted = false;
             }
             fillUnused();
         }
@@ -144,7 +147,7 @@ public class WordSearchPuzzle {
                 col += (word.length() - 1);
                 row += (word.length() - 1);
                 dir = "RightRevDiag";
-            } else if (col > (this.dimensions / 2)) {
+            } else if (col >= (this.dimensions / 2)) {
                 dir = "LeftDownDiag";
             } else {
                 dir = "RightDownDiag";

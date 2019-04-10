@@ -17,3 +17,5 @@ weather
 bill
 money
 politicians
+mononucleosis
+onomatopoeia

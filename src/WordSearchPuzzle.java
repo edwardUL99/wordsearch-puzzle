@@ -19,9 +19,11 @@ public class WordSearchPuzzle {
 		capitalise();
 		puzzle = new char[9][9];
 		this.dimensions = 9;
+		/*
 		insert("BOAT", 3, 3, false, false, false);
-		canIntersect("BOAT", "RABBIT", 3, 3, false);
-	
+		canIntersect("BOAT", "RABBIT", 3, 3, false);*/
+	    intersect();
+	    fillUnused();
 		//generateWordSearchPuzzle();
 	}
 
@@ -186,7 +188,7 @@ public class WordSearchPuzzle {
 
 	private boolean ableToInsert(int row, int col, boolean vertical, String word, boolean diagonal) {
 	    String compareWord = "";
-		if (word.length() > this.dimensions) {
+		if ((word.length() > this.dimensions) || ((row < 0) || (row >= this.dimensions)) || ((col < 0) || (col >= this.dimensions))) {
 			return false;
 		}
 	    if (!diagonal) {
@@ -219,23 +221,49 @@ public class WordSearchPuzzle {
         }
 	}
 	
-	private boolean canIntersect(String word1, String word2, int row1, int col1, boolean vertical) {
-		if (!vertical) {
+	private boolean canIntersect(String word1, String word2, int row1, int col1, boolean vertical, boolean reversed) {
 			for (int j = 0; j < word1.length(); j++) {
-				for (int k = 0; k < word2.length(); k++) {
-					System.out.printf("Word1 char: %c Word2 char: %c\n", word1.charAt(j), word2.charAt(k));
-					if (word1.charAt(j) == word2.charAt(k)) {
-						if (ableToInsert(row1 - k, col1 + j, true, word2, false)) {
-							System.out.println("Can Intersect");
-							insert(word2, row1 - k, col1 + j, true, false, false);
-							return true;
-						}
-					}
-				}
-			}
-		}
+                for (int k = 0; k < word2.length(); k++) {
+                    if (word1.charAt(j) == word2.charAt(k)) {
+                        if (ableToInsert(row1 - k, col1 + j, !vertical, word2, false)) {
+                            insert(word2, row1 - k, col1 + j, !vertical, reversed, false);
+                            return true;
+                        }
+                    }
+                }
+            }
 		return false;
 	}
+
+	private void intersect() {
+	    String prevWord, currentWord;
+	    prevWord = puzzleWords.get(0);
+	    boolean vertical = random.nextBoolean(), diagonal = false, reversed = random.nextBoolean();
+	    int row = random.nextInt(this.dimensions), col = random.nextInt(this.dimensions);
+	    if (ableToInsert(row, col, vertical, prevWord, diagonal)) {
+	        insert(prevWord, row, col, vertical, false, diagonal);
+        } else {
+	        intersect();
+        }
+
+	    for (int i = 1; i < puzzleWords.size(); i++) {
+	        prevWord = puzzleWords.get(i-1);
+	        currentWord = puzzleWords.get(i);
+	        boolean wasInserted = canIntersect(prevWord, currentWord, row, col, vertical, reversed);
+	        int attempts = 0;
+	        while (!wasInserted && attempts < 100) {
+	            row = random.nextInt(this.dimensions);
+	            col = random.nextInt(this.dimensions);
+	            wasInserted = canIntersect(prevWord, currentWord, row, col, vertical, reversed);
+	            attempts++;
+            }
+	        if (!wasInserted && attempts == 100) {
+	            puzzleWords.remove(i);
+            }
+	        vertical = random.nextBoolean();
+	        reversed = random.nextBoolean();
+         }
+    }
 	
 	private boolean canInsDiag(int row, int col, String word) {
 	    if (row + word.length() < this.dimensions && row < this.dimensions/2) {

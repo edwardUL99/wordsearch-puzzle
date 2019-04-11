@@ -7,9 +7,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/Driver.java" line="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="Update WordSearchPuzzle.java">
-      <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
-    </list>
+    <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="Update WordSearchPuzzle.java" />
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +106,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -225,7 +223,7 @@
       <workItem from="1554885692096" duration="1692000" />
       <workItem from="1554924163506" duration="4947000" />
       <workItem from="1554974007930" duration="3725000" />
-      <workItem from="1554987021826" duration="1624000" />
+      <workItem from="1554987021826" duration="2074000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -266,7 +264,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89914000" />
+    <option name="totallyTimeSpent" value="90364000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -278,8 +276,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3290469" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -290,7 +287,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4669739" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4669739" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39938557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

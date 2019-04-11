@@ -55,17 +55,17 @@ public class WordSearchPuzzle {
      * @return The puzzle is returned as a formatted String with just the wordsearch puzzle
      */
     public String getPuzzleAsString() {
+        String puzzleString = null;
         if (this.puzzle != null) { //If the puzzle hasn't been generated yet because no possible words were available for insertion, we will return null
-            String puzzleString = "";
+            puzzleString = "";
             for (char[] i : puzzle) {
                 for (char ch : i) {
                     puzzleString += "\t" + ch;
                 }
                 puzzleString += "\n";
             }
-            return puzzleString;
         }
-        return null;
+        return puzzleString;
     }
 
     /**
@@ -88,7 +88,11 @@ public class WordSearchPuzzle {
                 }
             }
         } else { //The following line will be printed if a)No words were able to be inserted at all or b)No words were picked and inserted into the puzzleWords list
-            System.out.println("No wordsearch puzzle was generated. Try the following: \n 1)Try increasing the word count to be used \n 2)Reduce/Increase the longest word length \n 3)Reduce/Increase the shortest word length \n 4)Ensure that the words chosen do not contain numbers");
+            System.out.println("No wordsearch puzzle was generated. Try the following: \n" +
+                    " 1)Try increasing the word count to be used \n" +
+                    " 2)Reduce/Increase the longest word length \n" +
+                    " 3)Reduce/Increase the shortest word length \n" +
+                    " 4)Ensure that the words chosen do not contain numbers");
         }
     }
 
@@ -99,22 +103,17 @@ public class WordSearchPuzzle {
        if (puzzleWords.size() != 0) {
             this.dimensions = getDimensions();
             puzzle = new char[this.dimensions][this.dimensions];
-            boolean reversed, vertical, diagonal;
-            int[] coords;
             for (int i = 0; i < puzzleWords.size(); i++) {
                 String word = puzzleWords.get(i);
-                boolean inserted = false;
-                while (!inserted) {
-                    vertical = random.nextBoolean();
-                    diagonal = random.nextBoolean();
-                    coords = generateCoordinates(word, vertical, diagonal); //coords is returned as an array i.e coords[0] = row, coords[1] = col
+                while (!this.directions.contains(word) && puzzleWords.contains(word)) {
+                    boolean vertical = random.nextBoolean();
+                    boolean diagonal = random.nextBoolean();
+                    int[] coords = generateCoordinates(word, vertical, diagonal); //coords is returned as an array i.e coords[0] = row, coords[1] = col
                     if (coords != null) {
-                        reversed = random.nextBoolean();
-                        insert(word, coords[0], coords[1], vertical, reversed, diagonal);
+                        insert(word, coords[0], coords[1], vertical, random.nextBoolean(), diagonal);
                     } else {
                         i--; //If coords are null, it means the word couldn't be inserted and was removed from puzzleWords, so decrement the i counter
                     }
-                    inserted = true; //If word was inserted successfully we want to exit the loop
                 }
             }
             fillUnused();
@@ -134,19 +133,19 @@ public class WordSearchPuzzle {
     private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed, boolean diagonal) {
         String dir;
         if ((vertical && reversed) && !diagonal) {
-            row += (word.length() - 1);
+            row += word.length() - 1;
             dir = "U";
         } else if (vertical && !diagonal) {
             dir = "D";
         } else if (reversed && !diagonal) {
-            col = col + (word.length() - 1);
+            col += word.length() - 1;
             dir = "L";
         } else if (!reversed && !diagonal) {
             dir = "R";
         } else {
             if (reversed && (col >= (this.dimensions / 2))) {
-                col -= (word.length() - 1);
-                row += (word.length() - 1);
+                col -= word.length() - 1;
+                row += word.length() - 1;
                 dir = "LeftRevDiag"; //If the word is inserted left but reversed i.e the last letter of the word starts somewhere after this.dimensions/2
             } else if (reversed) {
                 col += (word.length() - 1);
@@ -265,7 +264,7 @@ public class WordSearchPuzzle {
                 ((((col + word.length()) < this.dimensions) || ((col - word.length()) >= 0)) && (col < this.dimensions))) {
             int startingCol = col;
             int count = 0;
-            for (int i = row; i < row + word.length() && (col < this.dimensions - 1 && col > 0); i++) {
+            for (int i = row; (i < (row + word.length())) && ((col < (this.dimensions - 1)) && (col > 0)); i++) {
                 if (startingCol < this.dimensions / 2) {
                     if (puzzle[i][col++] != '\u0000') {
                         return false;
@@ -378,8 +377,7 @@ public class WordSearchPuzzle {
             if (puzzleWords.get(i).matches("([A-Za-z]+)")) {
                 this.puzzleWords.set(i, puzzleWords.get(i).toUpperCase());
             } else {
-                this.puzzleWords.remove(puzzleWords.get(i));
-                i--;
+                this.puzzleWords.remove(puzzleWords.get(i--)); //If the word does not match the criteria, we do not want to use the word in the Word Search
             }
         }
     }

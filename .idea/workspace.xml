@@ -8,10 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ae80c79-e65e-4cfb-8296-b381012ccdc7" name="Default Changelist" comment="Update WordSearchPuzzle.java">
-      <change beforePath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/production/wordsearch-puzzle/WordSearchPuzzle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WordSearchPuzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordSearchPuzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/words1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/words1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-3.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,15 +38,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="341" column="53" selection-start-line="341" selection-start-column="53" selection-end-line="341" selection-end-column="53" />
+            <state relative-caret-position="217">
+              <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#1570#1571#0" expanded="true" />
-                <element signature="e#1609#1610#0" expanded="true" />
-                <element signature="e#1724#1725#0" expanded="true" />
-                <element signature="e#1758#1759#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,11 +50,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="20" column="72" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="136">
+              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -69,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/words1.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -116,7 +107,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -150,7 +141,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554976566866" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554976753818" />
     <property name="last.edited.regexp" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -232,7 +223,7 @@
       <workItem from="1554842487427" duration="4242000" />
       <workItem from="1554885692096" duration="1692000" />
       <workItem from="1554924163506" duration="4947000" />
-      <workItem from="1554974007930" duration="2521000" />
+      <workItem from="1554974007930" duration="3308000" />
     </task>
     <task id="LOCAL-00001" summary="Updated the project files, only methods left is Display and generate">
       <created>1552599839609</created>
@@ -273,7 +264,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87086000" />
+    <option name="totallyTimeSpent" value="87873000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -285,7 +276,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3290469" />
@@ -333,23 +324,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/WordSearchPuzzle.java</url>
-          <line>201</line>
-          <properties class="WordSearchPuzzle" method="insertDiagonally">
+          <line>24</line>
+          <properties class="WordSearchPuzzle">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/WordSearchPuzzle.java</url>
-          <line>97</line>
-          <properties class="WordSearchPuzzle" method="generateWordSearchPuzzle">
+          <line>11</line>
+          <properties class="WordSearchPuzzle">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/WordSearchPuzzle.java</url>
-          <line>181</line>
+          <line>15</line>
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
@@ -406,32 +397,24 @@
     <entry file="file://$PROJECT_DIR$/src/words1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WordSearchPuzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="341" column="53" selection-start-line="341" selection-start-column="53" selection-end-line="341" selection-end-column="53" />
+        <state relative-caret-position="217">
+          <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#1570#1571#0" expanded="true" />
-            <element signature="e#1609#1610#0" expanded="true" />
-            <element signature="e#1724#1725#0" expanded="true" />
-            <element signature="e#1758#1759#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="20" column="72" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>

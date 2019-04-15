@@ -1,6 +1,6 @@
 /** WordSearchPuzzle class for CS4222 Spring Programming Assignment
  @Author: Edward Lynch-Milner
- ID: 18222021h
+ ID: 18222021
 **/
 import java.util.List;
 import java.util.ArrayList;
@@ -74,13 +74,9 @@ public class WordSearchPuzzle {
      */
     public void showWordSearchPuzzle(boolean hide) {
         if (puzzleWords.size() != 0) {
-            System.out.println("WordSearch Puzzle");
-            System.out.println("------------------");
-            System.out.println("Unused positions filled with random characters");
-            System.out.println(getPuzzleAsString() + "\n");
+            System.out.printf("WordSearch Puzzle\n------------------\nUnused positions filled with random characters\n%s\n", getPuzzleAsString());
             if (!hide) {
-                System.out.println("Words used with directions shown");
-                System.out.println(this.directions);
+                System.out.printf("Words used with directions shown\n%s\n", this.directions);
             } else {
                 System.out.println("Words used");
                 for (int i = 0; i < puzzleWords.size(); i++) {
@@ -101,22 +97,23 @@ public class WordSearchPuzzle {
      */
     private void generateWordSearchPuzzle() {
        if (puzzleWords.size() != 0) {
-            this.dimensions = getDimensions();
-            puzzle = new char[this.dimensions][this.dimensions];
-            for (int i = 0; i < puzzleWords.size(); i++) {
-                String word = puzzleWords.get(i);
-                while (!this.directions.contains(word) && puzzleWords.contains(word)) {
-                    boolean vertical = random.nextBoolean();
-                    boolean diagonal = random.nextBoolean();
-                    int[] coords = generateCoordinates(word, vertical, diagonal); //coords is returned as an array i.e coords[0] = row, coords[1] = col
-                    if (coords != null) {
-                        insert(word, coords[0], coords[1], vertical, random.nextBoolean(), diagonal);
-                    } else {
-                        i--; //If coords are null, it means the word couldn't be inserted and was removed from puzzleWords, so decrement the i counter
-                    }
-                }
-            }
-            fillUnused();
+           this.dimensions = getDimensions();
+           puzzle = new char[this.dimensions][this.dimensions];
+           boolean reversed, vertical, diagonal;
+           int[] coords;
+           for (int i = 0; i < puzzleWords.size(); i++) {
+               String word = puzzleWords.get(i);
+               vertical = random.nextBoolean();
+               diagonal = random.nextBoolean();
+               coords = generateCoordinates(word, vertical, diagonal); //coords is returned as an array i.e coords[0] = row, coords[1] = col
+               if (coords != null) {
+                   reversed = random.nextBoolean();
+                   insert(word, coords[0], coords[1], vertical, reversed, diagonal);
+               } else {
+                   i--; //If coords are null, it means the word couldn't be inserted and was removed from puzzleWords, so decrement the i counter
+               }
+           }
+           fillUnused();
         }
     }
 
@@ -233,9 +230,9 @@ public class WordSearchPuzzle {
      * @return whether the word can be inserted
      */
     private boolean ableToInsert(int row, int col, boolean vertical, String word, boolean diagonal) {
-        if (word.length() > this.dimensions) {
-            return false;
-        }
+        //if (word.length() > this.dimensions) {
+            //return false;
+        //}
         if (!diagonal) {
             int rowOrCol = vertical ? row:col;
             if ((rowOrCol + word.length()) >= this.dimensions) {
@@ -260,24 +257,22 @@ public class WordSearchPuzzle {
      * @return whether the word can be inserted diagonally or not
      */
     private boolean canInsDiag(int row, int col, String word) {
-        if ((((row + word.length()) < this.dimensions) && (row < (this.dimensions / 2))) &&
-                ((((col + word.length()) < this.dimensions) || ((col - word.length()) >= 0)) && (col < this.dimensions))) {
-            int startingCol = col;
-            int count = 0;
-            for (int i = row; (i < (row + word.length())) && ((col < (this.dimensions - 1)) && (col > 0)); i++) {
-                if (startingCol < this.dimensions / 2) {
-                    if (puzzle[i][col++] != '\u0000') {
-                        return false;
-                    }
-                } else {
-                    if (puzzle[i][col--] != '\u0000') {
-                        return false;
+        if ((((col + word.length()) < this.dimensions) || ((col - word.length()) >= 0)) && (col < this.dimensions))
+            if (((row + word.length()) < this.dimensions) && (row < (this.dimensions / 2))) {
+                int startingCol = col;
+                for (int i = row; i < row + word.length(); i++) {
+                    if (startingCol < this.dimensions / 2) {
+                        if (puzzle[i][col++] != '\u0000') {
+                            return false;
+                        }
+                    } else {
+                        if (puzzle[i][col--] != '\u0000') {
+                            return false;
+                        }
                     }
                 }
-                count++; //The count of unused positions available
+                return true;
             }
-            return count == word.length(); //If count is equals to the word.length it must be able to be inserted without overwriting anything
-        }
         return false;
     }
 
@@ -289,26 +284,22 @@ public class WordSearchPuzzle {
      * @return int[] array of row and col coordinates i.e coords[0] = row, coords[1] = col
      */
     private int[] generateCoordinates(String word, boolean vertical, boolean diagonal) {
-        int[] coords = new int[2];
+        int[] coords;
         int attempts = 0;
-        boolean canInsert = false;
-        while (attempts < 100 && (!canInsert && word.length() < this.dimensions)) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
+        while (attempts < 100 && word.length() < this.dimensions) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
             int row = random.nextInt(this.dimensions);
             int col = random.nextInt(this.dimensions);
             if (ableToInsert(row, col, vertical, word, diagonal)) {
+                coords = new int[2];
                 coords[0] = row;
                 coords[1] = col;
-                canInsert = true;
+                return coords;
             } else {
                 attempts++;
             }
         }
-        if (attempts == 100 || word.length() >= this.dimensions ) {
-            coords = null;
-            puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
-        }
-
-        return coords;
+        puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
+        return null;
     }
 
     /**
@@ -382,16 +373,14 @@ public class WordSearchPuzzle {
         }
     }
 
-
     /**
-     *
      * @return the dimensions for the WordSearchPuzzle i.e. it is a square grid so rows and cols will be the same
      */
     private int getDimensions() {
         int sum = 0;
         double scalingFactor = 1.75;
-        for (String i : puzzleWords) {
-            sum += i.length();
+        for (String str : puzzleWords) {
+            sum += str.length();
         }
         return ((int)(Math.sqrt((sum + 1) * scalingFactor)) + 1); //Incrementing it by 1 will always round it up
     }

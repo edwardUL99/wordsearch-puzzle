@@ -110,7 +110,7 @@ public class WordSearchPuzzle {
                    reversed = random.nextBoolean();
                    insert(word, coords[0], coords[1], vertical, reversed, diagonal);
                } else {
-                   i--; //If coords are null, it means the word couldn't be inserted and was removed from puzzleWords, so decrement the i counter
+                   i--; //If coords is null, it means the word couldn't be inserted and was removed from puzzleWords, so decrement the i counter
                }
            }
            fillUnused();
@@ -281,7 +281,7 @@ public class WordSearchPuzzle {
      * @param word The word to be inserted
      * @param vertical Whether the word if vertical (true) or horizontal (false)
      * @param diagonal  Whether the word is to be inserted diagonally or not
-     * @return int[] array of row and col coordinates i.e coords[0] = row, coords[1] = col
+     * @return int[] array of row and col coordinates where coords[0] = row, coords[1] = col
      */
     private int[] generateCoordinates(String word, boolean vertical, boolean diagonal) {
         int[] coords;
@@ -324,12 +324,14 @@ public class WordSearchPuzzle {
      * @param longest the length of the longest word to be included
      */
     private void readFromFile(String wordFile, int wordCount, int shortest, int longest) {
+        int wordsInFile = 0;
         List<String> chosenWords = new ArrayList<String>();
         try {
             FileReader aFileReader = new FileReader(wordFile);
             BufferedReader aBufferReader = new BufferedReader(aFileReader);
             String lineFromFile = aBufferReader.readLine();
             while (lineFromFile != null && shortest > 0) {
+                wordsInFile++;
                 if (lineFromFile.matches("([A-Za-z]{" + shortest + "," + longest + "})")) { //The regex ensures the word does not contain any numbers and allows uppercase or lowercase letters
                     chosenWords.add(lineFromFile.toUpperCase());
                 }
@@ -339,24 +341,23 @@ public class WordSearchPuzzle {
             aFileReader.close();
         } catch (IOException ignored) {
         }
-        storeIntoPuzzleArray(chosenWords, wordCount); //The method responsible for randomly choosing words that match the regex criteria
+        wordCount = wordsInFile < wordCount ? wordsInFile:wordCount;
+        storeIntoPuzzleWords(chosenWords, wordCount); //The method responsible for randomly choosing words that match the regex criteria
     }
 
     /**
      * Stores words chosen to be of the correct length and all characters from the readFromFile method
      * @param chosenWords the list of words that match the length
-     * @param wordCount the amount of words to RANDOMLY choose from the chosenWorss
+     * @param wordCount the amount of words to RANDOMLY choose from the chosenWords
      */
-    private void storeIntoPuzzleArray(List<String> chosenWords, int wordCount) {
+    private void storeIntoPuzzleWords(List<String> chosenWords, int wordCount) {
         int i = 0;
-        while (i < chosenWords.size()) {
+        while (puzzleWords.size() < wordCount && i < chosenWords.size()) { //i <= chosenWords.size() prevents infinite loop if there are less words in the file than wordCount
             int randPos = (int)(Math.random() * chosenWords.size());
             if (!puzzleWords.contains(chosenWords.get(randPos))) {
-                if (puzzleWords.size() < wordCount) {
-                    puzzleWords.add(chosenWords.get(randPos));
-                }
-                i++;
+                puzzleWords.add(chosenWords.get(randPos));
             }
+            i++;
         }
     }
 

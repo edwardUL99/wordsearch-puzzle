@@ -14,7 +14,7 @@ public class Driver {
 
 		test.showWordSearchPuzzle(false);
 
-		WordSearchPuzzle test1 = new WordSearchPuzzle("words.txt", 10, 1, 10);
+		WordSearchPuzzle test1 = new WordSearchPuzzle("words.txt", 29, 1, 10);
 		System.out.println(test1.getWordSearchList());
 		test1.showWordSearchPuzzle(false);
 

@@ -93,7 +93,7 @@ public class WordSearchPuzzle {
     }
 
     /**
-     * The main private ethod which is responsible for populating the grid with help of the numerous helper methods
+     * The main private method which is responsible for populating the grid with help of the numerous helper methods
      */
     private void generateWordSearchPuzzle() {
        if (this.puzzleWords.size() != 0) {
@@ -106,6 +106,19 @@ public class WordSearchPuzzle {
                }
            }
            fillUnused();
+        }
+    }
+
+    /**
+     * Fills unused(i.e. empty cells) in the grid with random characters from A-Z
+     */
+    private void fillUnused() {
+        for (int row = 0; row < puzzle.length; row++) {
+            for (int col = 0; col < puzzle[0].length; col++) {
+                if (puzzle[row][col] == '\u0000') {
+                    puzzle[row][col] = (char)(Math.random() * 26 + 'A');
+                }
+            }
         }
     }
 
@@ -160,7 +173,7 @@ public class WordSearchPuzzle {
         int attempts = 0;
         boolean vertical = random.nextBoolean();
         boolean diagonal = random.nextBoolean();
-        while (attempts < 1000 && word.length() < this.dimensions) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
+        while (attempts < 100 && word.length() < this.dimensions) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
             int row = random.nextInt(this.dimensions);
             int col = random.nextInt(this.dimensions);
             if (ableToInsert(row, col, vertical, word, diagonal)) {
@@ -172,7 +185,7 @@ public class WordSearchPuzzle {
                 diagonal = random.nextBoolean();
             }
         }
-        this.puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
+        this.puzzleWords.remove(word); //If we could not insert the word after 100 attempts, remove the word from the puzzleWords list
         return false;
     }
 
@@ -205,7 +218,7 @@ public class WordSearchPuzzle {
                 }
             }
         } else {
-            insertDiagonally(wordArray, startingRow, startingCol);
+            insertDiagonally(wordArray, row, col);
         }
 
         this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
@@ -225,19 +238,6 @@ public class WordSearchPuzzle {
                 puzzle[row++][col++] = wordArray[index++];
             } else {
                 puzzle[row++][col--] = wordArray[index++];
-            }
-        }
-    }
-
-    /**
-     * Fills unused(i.e. empty cells) in the grid with random characters from A-Z
-     */
-    private void fillUnused() {
-        for (int row = 0; row < puzzle.length; row++) {
-            for (int col = 0; col < puzzle[0].length; col++) {
-                if (puzzle[row][col] == '\u0000') {
-                    puzzle[row][col] = (char)(Math.random() * 26 + 'A');
-                }
             }
         }
     }
@@ -276,8 +276,8 @@ public class WordSearchPuzzle {
      * @return whether the word can be inserted diagonally or not
      */
     private boolean canInsDiag(int row, int col, String word) {
-        if (((col + word.length()) < this.dimensions) || (col - word.length()) >= 0)
-            if (((row + word.length()) < this.dimensions) && (row + word.length() < this.dimensions)) {
+        if ((col + word.length() < this.dimensions) || col - word.length() >= 0)
+            if (row + word.length() < this.dimensions) {
                 int startingCol = col;
                 for (int i = row; i < row + word.length(); i++) {
                     if (startingCol < this.dimensions / 2 && puzzle[i][col++] != '\u0000') {

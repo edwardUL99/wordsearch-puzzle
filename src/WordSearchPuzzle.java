@@ -151,16 +151,46 @@ public class WordSearchPuzzle {
     }
 
     /**
-     * Inserts the word into the grid
+     * Main insert method which randomly inserts the word given in the parameter into the puzzle. Performs checks if the word can be inserted into the grid space,
+     * unlike its overloaded counterparts
      * @param word The word to be inserted
-     * @param startingRow the row the word starts at
-     * @param startingCol the column the word starts at
-     * @param vertical if the word is to be inserted vertically or not
-     * @param reversed if the word is to be reversed
-     * @param diagonal if the word is to be inserted diagonally
+     * @return True if word was inserted or false if it wasn't
      */
-    private void placeOnPuzzle(String word, int startingRow, int startingCol, boolean vertical, boolean reversed, boolean diagonal) {
-        int index = 0, row = startingRow, col = startingCol; //The row and col values are saved so they don't get incremented so can be used in the dirsToString method for the directions string
+    private boolean insert(String word) {
+        int attempts = 0;
+        boolean vertical = random.nextBoolean();
+        boolean diagonal = random.nextBoolean();
+        while (attempts < 1000 && word.length() < this.dimensions) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
+            int row = random.nextInt(this.dimensions);
+            int col = random.nextInt(this.dimensions);
+            if (ableToInsert(row, col, vertical, word, diagonal)) {
+                boolean reversed = random.nextBoolean();
+                insert(word, row, col, vertical, reversed, diagonal);  //Uses the overloaded insert method to insert the word at the randomly(now known) chosen row and col coordinates
+                return true;
+            } else {
+                attempts++;
+                diagonal = random.nextBoolean();
+            }
+        }
+        this.puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
+        return false;
+    }
+
+
+
+    /**
+    * Overloaded insert method to insert the word if the parameters other then word are known in advance
+     * NOTE: Does not check if the word can be inserted in the grid or now, so to ensure you avoid out of bounds exceptions, use ableToInsert method first
+     * Main insert method ie insert(String word) has mechanisms to perform these checks
+    * @param word The word to be inserted
+    * @param row the row the word starts at
+    * @param col the column the word starts at
+    * @param vertical if the word is to be inserted vertically or not
+    * @param reversed if the word is to be reversed
+    * @param diagonal if the word is to be inserted diagonally
+    */
+    private void insert(String word, int row, int col, boolean vertical, boolean reversed, boolean diagonal) {
+        int index = 0, startingRow = row, startingCol = col; //The row and col values are saved so they don't get incremented so can be used in the dirsToString method for the directions string
         char[] wordArray = word.toCharArray();
 
         if (reversed) {
@@ -169,25 +199,25 @@ public class WordSearchPuzzle {
         if (!diagonal) {
             while (index < wordArray.length) {
                 if (vertical) {
-                    puzzle[startingRow++][startingCol] = wordArray[index++];
+                    puzzle[row++][col] = wordArray[index++];
                 } else {
-                    puzzle[startingRow][startingCol++] = wordArray[index++];
+                    puzzle[startingRow][col++] = wordArray[index++];
                 }
             }
         } else {
-            placeDiagonally(wordArray, startingRow, startingCol);
+            insertDiagonally(wordArray, startingRow, startingCol);
         }
 
         this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
     }
 
     /**
-     * Inserts the word diagonally
+     * Inserts the word diagonally. NOTE: Does not perform checks if the word can fit, so use canInsDiag method first to check
      * @param wordArray word to be inserted as char array
      * @param row row coordinates
      * @param col column coordinates
      */
-    private void placeDiagonally(char[] wordArray, int row, int col) {
+    private void insertDiagonally(char[] wordArray, int row, int col) {
         int index = 0;
         int startingCol = col;
         while (index < wordArray.length) {
@@ -258,31 +288,6 @@ public class WordSearchPuzzle {
                 }
                 return true;
             }
-        return false;
-    }
-
-    /**
-     * Randomly generates coordinates on the grid and checks if the word is able to fit, if so it returns an array containing the row and col values
-     * @param word The word to be inserted
-     * @return True if word was inserted or false if it wasn't
-     */
-    private boolean insert(String word) {
-        int attempts = 0;
-        boolean vertical = random.nextBoolean();
-        boolean diagonal = random.nextBoolean();
-        while (attempts < 1000 && word.length() < this.dimensions) { //If after 100 attempts, the likelihood of the word being able to be inserted is very low, so quit after that
-            int row = random.nextInt(this.dimensions);
-            int col = random.nextInt(this.dimensions);
-            if (ableToInsert(row, col, vertical, word, diagonal)) {
-                boolean reversed = random.nextBoolean();
-                placeOnPuzzle(word, row, col, vertical, reversed, diagonal);
-                return true;
-            } else {
-                attempts++;
-                diagonal = random.nextBoolean();
-            }
-        }
-        this.puzzleWords.remove(word); //If we could not insert the word after 100 attempts, return no coordinates and remove the word from the puzzleWords list
         return false;
     }
 

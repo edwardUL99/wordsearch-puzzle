@@ -14,12 +14,12 @@ public class Driver {
 
 		test.showWordSearchPuzzle(false);
 
-		WordSearchPuzzle test1 = new WordSearchPuzzle("words.txt", 29, 1, 10);
+		WordSearchPuzzle test1 = new WordSearchPuzzle("words.txt", 10, 1, 10);
 		System.out.println(test1.getWordSearchList());
 		test1.showWordSearchPuzzle(false);
 
-		WordSearchPuzzle test2 = new WordSearchPuzzle("words1.txt", 6, 1, 10);
+		WordSearchPuzzle test2 = new WordSearchPuzzle("words1.txt", 6, 1, 100);
 		System.out.println(test2.getWordSearchList());
-		test2.showWordSearchPuzzle(false);
+		test2.showWordSearchPuzzle(true);
 	}
 }

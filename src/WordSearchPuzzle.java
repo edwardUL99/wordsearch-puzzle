@@ -96,17 +96,15 @@ public class WordSearchPuzzle {
      * The main private method which is responsible for populating the grid with help of the numerous helper methods
      */
     private void generateWordSearchPuzzle() {
-       if (this.puzzleWords.size() != 0) {
-           this.dimensions = getDimensions();
-           puzzle = new char[this.dimensions][this.dimensions];
-           for (int i = 0; i < this.puzzleWords.size(); i++) {
-               String word = this.puzzleWords.get(i);
-               if (!insert(word)) {
-                   i--; //If word wasn't inserted, decrement the i counter as a word was removed from the puzzleWords list
-               }
-           }
-           fillUnused();
+        this.dimensions = getDimensions();
+        puzzle = new char[this.dimensions][this.dimensions];
+        for (int i = 0; i < this.puzzleWords.size(); i++) {
+            String word = this.puzzleWords.get(i);
+            if (!insert(word)) {
+                i--; //If word wasn't inserted, decrement the i counter as a word was removed from the puzzleWords list
+            }
         }
+        fillUnused();
     }
 
     /**
@@ -116,7 +114,7 @@ public class WordSearchPuzzle {
         for (int row = 0; row < puzzle.length; row++) {
             for (int col = 0; col < puzzle[0].length; col++) {
                 if (puzzle[row][col] == '\u0000') {
-                    puzzle[row][col] = (char)(Math.random() * 26 + 'A');
+                    puzzle[row][col] = (char)(random.nextInt(26) + 'A');
                 }
             }
         }
@@ -135,29 +133,27 @@ public class WordSearchPuzzle {
     private String dirsToString(int row, int col, String word, boolean vertical, boolean reversed, boolean diagonal) {
         String dir;
         if ((vertical && reversed) && !diagonal) {
-            row += word.length() - 1;
+            row += word.length() - 1; //row value is initially row position of last letter so add word.length() - 1 to get row of first letter
             dir = "U";
         } else if (vertical && !diagonal) {
             dir = "D";
         } else if (reversed && !diagonal) {
-            col += word.length() - 1;
+            col += word.length() - 1; //col value initially is position of last letter so add word.length() - 1
             dir = "L";
         } else if (!reversed && !diagonal) {
             dir = "R";
+        } else if (reversed && (col >= (this.dimensions / 2))) {
+            col -= word.length() - 1; //If reversed the col value is the position of the last letter(came first in the puzzle) so must minus the word.length() - 1 and col >= dimensions/2 so word is going left so minus col value
+            row += word.length() - 1; //If reversed, the row value is row of last letter so must add the word.length() - 1(array index starts at 0) to the row value
+            dir = "RightUpDiag"; //If the word is inserted left but reversed i.e the last letter of the word starts somewhere after this.dimensions/2
+        } else if (reversed) {
+            col += (word.length() - 1); //Reversed but going right so add col value with word.length() -1
+            row += (word.length() - 1);
+            dir = "LeftUpDiag"; //If the word is inserted right but reversed
+        } else if (!reversed && col >= (this.dimensions / 2)) {
+            dir = "LeftDownDiag";
         } else {
-            if (reversed && (col >= (this.dimensions / 2))) {
-                col -= word.length() - 1;
-                row += word.length() - 1;
-                dir = "RightUpDiag"; //If the word is inserted left but reversed i.e the last letter of the word starts somewhere after this.dimensions/2
-            } else if (reversed) {
-                col += (word.length() - 1);
-                row += (word.length() - 1);
-                dir = "LeftUpDiag"; //If the word is inserted right but reversed
-            } else if (col >= (this.dimensions / 2)) {
-                dir = "LeftDownDiag";
-            } else {
-                dir = "RightDownDiag";
-            }
+            dir = "RightDownDiag";
         }
 
         return String.format("%s[%d][%d]%s", word, row, col, dir);
@@ -221,7 +217,7 @@ public class WordSearchPuzzle {
             insertDiagonally(wordArray, row, col);
         }
 
-        this.directions = this.directions + dirsToString(row, col, word, vertical, reversed, diagonal) + "\n";
+        this.directions = this.directions + dirsToString(startingRow, startingCol, word, vertical, reversed, diagonal) + "\n";
     }
 
     /**
@@ -330,7 +326,7 @@ public class WordSearchPuzzle {
             aFileReader.close();
         } catch (IOException ignored) {
         }
-        wordCount = wordsInFile < wordCount ? wordsInFile:wordCount; //If there is less words in the file than the wordCount specified, wordCount is replaced witht the amount of words in the file
+        wordCount = wordsInFile < wordCount ? wordsInFile:wordCount; //If there is less words in the file than the wordCount specified, wordCount is replaced with the amount of words in the file
         storeIntoPuzzleWords(chosenWords, wordCount); //The method responsible for randomly choosing words that match the regex criteria
     }
 
@@ -341,17 +337,16 @@ public class WordSearchPuzzle {
      */
     private void storeIntoPuzzleWords(List<String> chosenWords, int wordCount) {
         int i = 0;
-        while (this.puzzleWords.size() < wordCount && i < chosenWords.size()) { //i <= chosenWords.size() prevents infinite loop if there are less words in the file than wordCount
+        while (this.puzzleWords.size() < wordCount && i++ < chosenWords.size()) { //i <= chosenWords.size() prevents infinite loop if there are less words in the file than wordCount
             int randPos = random.nextInt(chosenWords.size());
             if (!this.puzzleWords.contains(chosenWords.get(randPos))) {
                 this.puzzleWords.add(chosenWords.get(randPos));
             }
-            i++;
         }
     }
 
     /**
-     * Used if the userSpecifiedWords constructor is used to capitalise every word if not capitalised already
+     * Used if the userSpecifiedWords constructor is used to capitalise every word if not capitalised already and checks if the words contain only letters
      */
     private void checkPuzzleWords() {
         for (int i = 0; i < this.puzzleWords.size(); i++) {

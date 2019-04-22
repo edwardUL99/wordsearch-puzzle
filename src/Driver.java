@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Driver {
 	public static void main(String[] args) {
-        String[] wordsArray = {"rabbit", "water", "kangaroo", "trees", "dogs", "houses", "shelters", "god", "humans", "cancer", "leo", "virgo", "capricorn"};
+        String[] wordsArray = {"rabbit", "water", "kangaroo", "trees", "dogs", "houses", "shelters", "god", "humans", "cancer", "leo", "virgo", "capricorn", "programming", "university", "lectures"};
         ArrayList<String> words = new ArrayList<String>(Arrays.asList(wordsArray));
         WordSearchPuzzle test = new WordSearchPuzzle(words);
 
